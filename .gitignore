@@ -298,5 +298,4 @@ TSWLatexianTemp*
 .kile
 .directory
 bachelorthesis.kilepr
-kapitel/*.aux
 main.pdf

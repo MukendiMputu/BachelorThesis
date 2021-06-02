@@ -2,18 +2,18 @@
 \include{header}
 \begin{document}
 \selectlanguage{german}
-\include{kapitel/titelseite}
+\input{kapitel/titelseite}
 \blankpage
 \pagenumbering{roman}
 \tableofcontents
 \cleardoublepage
 \pagenumbering{arabic}
 % Kapitel
-\include{kapitel/einleitung}
-\include{kapitel/kapitel2}
+\input{kapitel/einleitung}
+\input{kapitel/kapitel2}
 % Anhang
 \appendix
-\include{kapitel/anhang}
+\input{kapitel/anhang}
 % Abbildungsverzeichnis
 \listoffigures
 \addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
@@ -30,7 +30,7 @@
 \thispagestyle{myheadings}
 \markboth{}{ERKLÄRUNG}
 \addcontentsline{toc}{chapter}{Erklärung}
-\include{kapitel/erklaerung}
+\input{kapitel/erklaerung}
 \cleardoublepage
 \end{document}
 
