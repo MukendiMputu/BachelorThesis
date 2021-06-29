@@ -1,16 +1,18 @@
 % main.tex
 \include{header}
 \begin{document}
-\selectlanguage{english}
+%\selectlanguage{english}
 \input{kapitel/frontpage}
-\blankpage
+\blankpage{}
 \pagenumbering{roman}
 \tableofcontents
-\cleardoublepage
+\cleardoublepage{}
 \pagenumbering{arabic}
-% Kapitel
+% Chapters
 \input{kapitel/introduction}
 \input{kapitel/chapter2}
+\input{kapitel/chapter3}
+\input{kapitel/chapter4}
 \input{kapitel/evaluation}
 \input{kapitel/futurework}
 \input{kapitel/relatedwork}
@@ -22,11 +24,11 @@
 % Abbildungsverzeichnis
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
-\cleardoublepage
+\cleardoublepage{}
 % Algorithmenverzeichnis
-\listofalgorithms
+\listofalgorithms{}
 \addcontentsline{toc}{chapter}{List of Algorithms}
-\cleardoublepage
+\cleardoublepage{}
 % Literaturverzeichnis
 \bibliographystyle{gerplain}
 \bibliography{literatur/diplom}
@@ -36,6 +38,6 @@
 \markboth{}{DECLARATION}
 \addcontentsline{toc}{chapter}{Declaration}
 \input{kapitel/declaration}
-\cleardoublepage
+\cleardoublepage{}
 \end{document}
 
