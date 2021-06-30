@@ -1,36 +1,43 @@
 % main.tex
 \include{header}
 \begin{document}
-\selectlanguage{german}
-\input{kapitel/titelseite}
-\blankpage
+%\selectlanguage{english}
+\input{kapitel/frontpage}
+\blankpage{}
 \pagenumbering{roman}
 \tableofcontents
-\cleardoublepage
+\cleardoublepage{}
 \pagenumbering{arabic}
-% Kapitel
-\input{kapitel/einleitung}
-\input{kapitel/kapitel2}
+% Chapters
+\input{kapitel/introduction}
+\input{kapitel/chapter2}
+\input{kapitel/chapter3}
+\input{kapitel/chapter4}
+\input{kapitel/evaluation}
+\input{kapitel/futurework}
+\input{kapitel/relatedwork}
+\input{kapitel/conclusion}
+
 % Anhang
 \appendix
-\input{kapitel/anhang}
+\input{kapitel/appendix}
 % Abbildungsverzeichnis
 \listoffigures
-\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
-\cleardoublepage
+\addcontentsline{toc}{chapter}{List of Figures}
+\cleardoublepage{}
 % Algorithmenverzeichnis
-\listofalgorithms
-\addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
-\cleardoublepage
+\listofalgorithms{}
+\addcontentsline{toc}{chapter}{List of Algorithms}
+\cleardoublepage{}
 % Literaturverzeichnis
 \bibliographystyle{gerplain}
 \bibliography{literatur/diplom}
 \addcontentsline{toc}{chapter}{\bibname}
 % Erklaerung
 \thispagestyle{myheadings}
-\markboth{}{ERKLÄRUNG}
-\addcontentsline{toc}{chapter}{Erklärung}
-\input{kapitel/erklaerung}
-\cleardoublepage
+\markboth{}{DECLARATION}
+\addcontentsline{toc}{chapter}{Declaration}
+\input{kapitel/declaration}
+\cleardoublepage{}
 \end{document}
 
