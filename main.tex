@@ -1,7 +1,7 @@
 % main.tex
 \include{header}
 \begin{document}
-% Front page
+
 \input{kapitel/frontpage}
 \blankpage{}
 \pagenumbering{roman}
@@ -22,9 +22,7 @@
 % Anhang
 \appendix
 \input{kapitel/appendix}
-% Abkuerzungsverzeichnis
-\printglossaries{}
-\addcontentsline{toc}{chapter}{List of Abbreviations}
+\clearpage
 % Abbildungsverzeichnis
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -43,5 +41,7 @@
 \addcontentsline{toc}{chapter}{Declaration}
 \input{kapitel/declaration}
 \cleardoublepage{}
+\glsaddall{}
+\printglossaries{}
 \end{document}
 

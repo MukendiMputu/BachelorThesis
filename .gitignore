@@ -117,7 +117,7 @@ acs-*.bib
 *.lzs
 
 # uncomment this for glossaries-extra (will ignore makeindex's style files!)
-# *.ist
+*.ist
 
 # gnuplottex
 *-gnuplottex-*
@@ -299,5 +299,4 @@ TSWLatexianTemp*
 .directory
 bachelorthesis.kilepr
 main.pdf
-literatur/26511-2018.pdf
-main.ist
+books
