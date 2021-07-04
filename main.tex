@@ -8,6 +8,7 @@
 \tableofcontents
 \cleardoublepage{}
 \pagenumbering{arabic}
+
 % Chapters
 \setlength{\parskip}{1em plus0.1em minus0.1em}
 \input{kapitel/introduction}
@@ -42,6 +43,8 @@
 \input{kapitel/declaration}
 \cleardoublepage{}
 \glsaddall{}
+\printglossary[type=\acronymtype]
+\setglossarystyle{altlist}
 \printglossaries{}
 \end{document}
 
