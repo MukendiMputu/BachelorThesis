@@ -7,24 +7,25 @@
 \usepackage[pdftex]{graphicx,color}
 \usepackage{amsmath,amssymb,subfigure}
 
-% Abkuerzungsverzeichnis
+% List of Abbreviation
 \usepackage[acronym, toc]{glossaries}
 \input{literatur/glossary.tex}
 
-% Theorem-Umgebungen
+
+% Theorem environment
 \usepackage[amsmath,thmmarks]{ntheorem}
 
-% Korrekte Darstellung der Umlaute
+% Correct display of umlauts
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-% Algorithmen
+% Algorithms
 \usepackage[plain,chapter]{algorithm}
 \usepackage{algorithmic}
 
 \usepackage{enumerate}
 
-% Bibtex deutsch
+% Bibtex german
 \usepackage{bibgerm}
 
 % URLs
@@ -33,11 +34,11 @@
 
 % Caption Packet
 \usepackage[margin=0pt,font=small,labelfont=bf]{caption}
-% Gliederung einstellen
+% Set outline
 %\setcounter{secnumdepth}{5}
 %\setcounter{tocdepth}{5}
 
-% Theorem-Optionen %
+% Theorem options %
 \theoremseparator{.}
 \theoremstyle{change}
 \newtheorem{theorem}{Theorem}[section]
@@ -45,20 +46,20 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{korollar}[theorem]{Korollar}
 \newtheorem{proposition}[theorem]{Proposition}
-% Ohne Numerierung
+% Without numbering
 \theoremstyle{nonumberplain}
 \renewtheorem{theorem*}{Theorem}
 \renewtheorem{satz*}{Satz}
 \renewtheorem{lemma*}{Lemma}
 \renewtheorem{korollar*}{Korollar}
 \renewtheorem{proposition*}{Proposition}
-% Definitionen mit \upshape
+% Definitions with \upshape
 \theorembodyfont{\upshape}
 \theoremstyle{change}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{nonumberplain}
 \renewtheorem{definition*}{Definition}
-% Kursive Schrift
+% Cursive font
 \theoremheaderfont{\itshape}
 \newtheorem{notation}{Notation}
 \newtheorem{konvention}{Konvention}
@@ -77,26 +78,26 @@
 \renewtheorem{beispiel*}{Beispiel}
 \renewtheorem{problem*}{Problem}
 
-% Algorithmen anpassen %
+% Customize algorithms %
 \renewcommand{\algorithmicrequire}{\textit{Eingabe:}}
 \renewcommand{\algorithmicensure}{\textit{Ausgabe:}}
 \floatname{algorithm}{Algorithmus}
 %\renewcommand{\listalgorithmname}{Algorithmenverzeichnis}
 \renewcommand{\algorithmiccomment}[1]{\color{grau}{// #1}}
 
-% Zeilenabstand einstellen %
+% Set line spacing %
 \renewcommand{\baselinestretch}{1.25}
-% Floating-Umgebungen anpassen %
+% Set floating environment %
 \renewcommand{\topfraction}{0.9}
 \renewcommand{\bottomfraction}{0.8}
 
-% Leere Seite ohne Seitennummer, naechste Seite rechts
+% Blank page without page number, next page to the right
 \newcommand{\blankpage}{
  \clearpage{\pagestyle{empty}\cleardoublepage}
 }
 
-% Keine einzelnen Zeilen beim Anfang eines Abschnitts
+% No single lines at the beginning of a section
 \clubpenalty= 10000
-% Keine einzelnen Zeilen am Ende eines Abschnitts
+% No single lines at the end of a section
 \widowpenalty= 10000 \displaywidowpenalty= 10000
 % EOF

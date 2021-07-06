@@ -1,5 +1,5 @@
 % main.tex
-\include{header}
+\input{header}
 \begin{document}
 
 \input{kapitel/frontpage}
@@ -7,6 +7,7 @@
 \pagenumbering{roman}
 \tableofcontents
 \cleardoublepage{}
+\printglossary[type=\acronymtype]
 \pagenumbering{arabic}
 
 % Chapters
@@ -20,31 +21,30 @@
 \input{kapitel/relatedwork}
 \input{kapitel/conclusion}
 
-% Anhang
+% Appendix
 \appendix
 \input{kapitel/appendix}
 \clearpage
-% Abbildungsverzeichnis
+% List of Figures
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
 \cleardoublepage{}
-% Algorithmenverzeichnis
+% List of Algorithms
 \listofalgorithms{}
 \addcontentsline{toc}{chapter}{List of Algorithms}
 \cleardoublepage{}
-% Literaturverzeichnis
+% Lexicon
+\setglossarystyle{altlist}
+\printglossary[title=List of terms, toctitle=List of terms]
+% Bibliography
 \bibliographystyle{gerplain}
 \bibliography{literatur/diplom}
 \addcontentsline{toc}{chapter}{\bibname}
-% Erklaerung
+% Declaration
 \thispagestyle{myheadings}
 \markboth{}{DECLARATION}
 \addcontentsline{toc}{chapter}{Declaration}
 \input{kapitel/declaration}
 \cleardoublepage{}
-\glsaddall{}
-\printglossary[type=\acronymtype]
-\setglossarystyle{altlist}
-\printglossaries{}
 \end{document}
 
