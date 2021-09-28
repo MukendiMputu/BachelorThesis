@@ -18,39 +18,24 @@ With each generation an Ecore object specific to each tool is also created to pr
 The full generation process of a graphical modeling tool (of a CINCO Product Application) comprises four essential (meta-) levels~\cite{Naujokat2018}. The first level, associated with the role Eclipse Developer, is where the Ecore.ecore and GraphitiDiagram.ecore meta model are developed. The second level is where CINCO Developers of the Chair 5 for Programming Systems used the aforementioned meta model to develope the MGL.ecore and Style.ecore (actually corresponding to the MSL described in Sec. \hyperref[sec:MSL]{2.3}), which in turns will become meta model of the third specification level, where the CINCO Product Developers operate. This is where this thesis work comes in. So this means the Eclipse Developers are now at the meta meta level, the CINCO Developers at meta level of the specification elaborated in this work. For the remainder of the chapters we will be focusing on the third and forth specification level. Latter is the level where the CINCO Product Users use the generated graphical editor to create the domain specific models. 
 
 \section{Meta Graph Language}\label{sec:MGL}
-The \acrfull{mgl} sketches the behavior, the constraints and gather the all the graphical components that will constitute the model elements that come in use in every graph diagram created in the modeling tool. As a CINCO Product developer, this is most likely the first place to start: the main elements that can be define in a \acrshort{mgl} are nodes, containers and edges.  As illustrated in Listing~\ref{docMGL}.
+The \acrfull{mgl} sketches the behavior, the constraints and gather the all the graphical components that will constitute the model elements that come in use in every graph diagram created in the modeling tool. As a CINCO Product developer, this is most likely the first place to start: the main elements that can be define in a \acrshort{mgl} are nodes, containers and edges.  As illustrated below in Listing~\ref{docMGL}.
 
-\begin{lstlisting}[language=MGL, caption={Doc.mgl}, label=docMGL]
+\begin{lstlisting}[language=MGL, caption={Doc.mgl for the user sequence graph model}, label=docMGL]
     id info.scce.cinco.product.usersequence.main
     stylePath "model/Doc.style"
 
-    @mcam("check")
     graphModel DocGraphModel {
         iconPath "icons/16/sequence_16.png"
         diagramExtension "doc"
-        containableElements(
-            StartNode [1,1],
-            EndNode [1,1],
-            SubDoc [0,*],
-            Timer[0,*],
-            Screenshot [1,*],
-            Navigation [1,*],
-            WebElement [0,*],
-            SectionNode [1,*],
-            Comment[1, *]
-        )
+        containableElements(StartNode[1,1], EndNode[1,1], WebElement[0,*])
         attr EString as modelName := "UserSequence"
     }
 
-    @icon("icons/16/start_16.png")
-    @palette("Basic Elements")
     node StartNode {
         style startNode
         outgoingEdges (Transition[1,1])
     }
 
-    @icon("icons/16/stop_16.png")
-    @palette("Basic Elements")
     node EndNode {
         style endNode
         incomingEdges (Transition[1,1])
