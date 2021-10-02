@@ -18,31 +18,80 @@ With each generation an Ecore object specific to each tool is also created to pr
 The full generation process of a graphical modeling tool (of a CINCO Product Application) comprises four essential (meta-) levels~\cite{Naujokat2018}. The first level, associated with the role Eclipse Developer, is where the Ecore.ecore and GraphitiDiagram.ecore meta model are developed. The second level is where CINCO Developers of the Chair 5 for Programming Systems used the aforementioned meta model to develope the MGL.ecore and Style.ecore (actually corresponding to the MSL described in Sec. \hyperref[sec:MSL]{2.3}), which in turns will become meta model of the third specification level, where the CINCO Product Developers operate. This is where this thesis work comes in. So this means the Eclipse Developers are now at the meta meta level, the CINCO Developers at meta level of the specification elaborated in this work. For the remainder of the chapters we will be focusing on the third and forth specification level. Latter is the level where the CINCO Product Users use the generated graphical editor to create the domain specific models. 
 
 \section{Meta Graph Language}\label{sec:MGL}
-The \acrfull{mgl} sketches the behavior, the constraints and gather the all the graphical components that will constitute the model elements that come in use in every graph diagram created in the modeling tool. As a CINCO Product developer, this is most likely the first place to start: the main elements that can be define in a \acrshort{mgl} are nodes, containers and edges.  As illustrated below in Listing~\ref{docMGL}.
 
-\begin{lstlisting}[language=MGL, caption={Doc.mgl for the user sequence graph model}, label=docMGL]
-    id info.scce.cinco.product.usersequence.main
-    stylePath "model/Doc.style"
+The \acrfull{mgl} sketches the behavior, the constraints and gathers the all the graphical components that will constitute the model elements that come in use in every graph diagram created in the modeling tool. As a CINCO Product developer, this is most likely the first place to start: the main elements that can be define in a \acrshort{mgl} are \textbf{nodes}, \textbf{containers} and \textbf{edges}. 
 
-    graphModel DocGraphModel {
-        iconPath "icons/16/sequence_16.png"
-        diagramExtension "doc"
-        containableElements(StartNode[1,1], EndNode[1,1], WebElement[0,*])
-        attr EString as modelName := "UserSequence"
+As illustrated below in listing~\ref{docMGL}, we first begin by determining giving the graph an id (line~\ref{line:id}), that will be use as the package name containing all classes generated base on the herein specified nodes. Optionally, we could also import an external graph; in that case the import statement should come in first position as it is the case in our listing example. The imported graph gets a variable name specified by the keyword \lstinline[language=MGL]{as}, hence can be reference throughout the entire code (see line~\ref{line:extRef}). Next, we specify the style to be used for the graphical representation of each model element; line~\ref{line:styl} at global level and in line~\ref{line:styStart} and~\ref{line:styEnd} i.e.\ at node level. Note that the style defined at node level have to exist in a dedicated style file prior to assigning them here, otherwise a compile error is raised until the missing style is added and saved.
+
+\begin{lstlisting}[language=MGL, caption={Doc.mgl for the user sequence graph model}, label=docMGL, escapechar=|, name=DocMGL]
+    import "model/Doc.mgl" as docMgl |\label{line:extRef}|
+    id info.scce.cinco.product.features.main |\label{line:id}|
+    stylePath "model/Feature.style" |\label{line:styl}|
+
+    @primeviewer
+    @mcam("check")
+    @generatable("info.scce.cinco.product.userdocumentation.codegen.Generate", "/src-gen/")
+    graphModel FeatureGraphModel { |\label{line:modelStart}|
+        iconPath "icons/16/feature_16.png"
+        diagramExtension "feat"
+        containableElements(FeatureContainer,DocNode[1,*])
+        attr EString as modelName := "New Feature"
+        attr EString as description := "New Description"
+    }|\label{line:modelEnd}|
+
+    @icon("icons/16/start_16.png")
+    node Start extends docMgl::StartNode { |\label{line:nodes}|
+        style startNode |\label{line:styStart}|
+        outgoingEdges (Edge[1,1])
     }
 
-    node StartNode {
-        style startNode
-        outgoingEdges (Transition[1,1])
+    @icon("icons/16/stop_16.png")
+    node End extends docMgl::EndNode {
+        style endNode |\label{line:styEnd}|
+        incomingEdges (Edge[1,*])
     }
 
-    node EndNode {
-        style endNode
-        incomingEdges (Transition[1,1])
+    @icon("icons/16/container_16.png")
+    container FeatureContainer {
+        style featureContainer("${title}")
+        containableElements(
+            Start[1,1],
+            End[1,1],
+            DocNode[1,*]
+        )
+        attr EString as title := "New Feature"
+        attr EString as description := "This is an example of a short documentation that will appear in the markdown file later on."
+    }
+    
+    @doubleClickAction("info.scce.cinco.product.userdocumentation.action.DocNodeOpenSubmodel")
+    node DocNode{
+        style docNode("${mgl.modelName}")
+        prime docMgl::DocGraphModel as mgl
+        attr EBoolean as createScreenshots := true
+        incomingEdges (*[1,*])
+        outgoingEdges (Edge[1,*])
+    }
+
+    enum Browsers {
+        firefox chrome Edge safari ie opera
+    }
+
+    edge Edge { |\label{line:edge}|
+        style simpleArrow
     }
 \end{lstlisting}
 
+Then from line~\ref{line:modelStart} to~\ref{line:modelEnd} we define some important attributes of the graph model line the icon and the file extension to be used for visual representation in the graphical modeling tool, as well as the model name and a list of element that can be contained with the modeling canvas. More will be explain in coming chapters.
+
+
+Last, from line~\ref{line:nodes} to the end, we define graph model nodes by associating an existing style in the file specified by the \lstinline[language=MGL]{stylePath} keyword and restricting the type of edges that can be connect from an to them. In our case, the start node can only have an outgoing edge of the type \lstinline[language=MGL]{Transition} and opposed that the end node can only be connected one incoming transition edge. Those constraints are enforced using multiplicity statements like in \acrfull{uml} diagrams. In the same manner, container nodes can be given a style, attributes and incoming and/or outgoing edges with multiplicity constraints. In line~\ref{line:edge} we see a definition of the \lstinline[language=MGL]{edge} element that will connect model elements.
+
+Additonal elements can be 
+
+For demonstration purposes, we kept our example listings short. An exhaustive list of all the usable elements and annotations can be found on the CINCO's~\href{https://gitlab.com/scce/cinco/-/wikis/Cinco-Product-Specification}{Wiki page}.
+
 \section{Meta Style Language}\label{sec:MSL}
+The appearance of all the elements defined in the \acrshort{mgl} are laid down using the textual language named \acrfull{msl}. As explained in~\cite{gitlabcinco}, three essential elements constitute the design of a \acrshort{mgl} model, namely: \textbf{appearance}, \textbf{nodeStyle} and the \textbf{edgeStyle}.
 
 \section{Cinco Product Definition}\label{sec:CPD}
 
