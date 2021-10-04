@@ -21,7 +21,7 @@ The full generation process of a graphical modeling tool (of a CINCO Product App
 
 The \acrfull{mgl} sketches the behavior, the constraints and gathers the all the graphical components that will constitute the model elements that come in use in every graph diagram created in the modeling tool. As a CINCO Product developer, this is most likely the first place to start: the main elements that can be define in a \acrshort{mgl} are \textbf{nodes}, \textbf{containers} and \textbf{edges}. 
 
-As illustrated below in listing~\ref{docMGL}, we first begin by determining giving the graph an id (line~\ref{line:id}), that will be use as the package name containing all classes generated base on the herein specified nodes. Optionally, we could also import an external graph; in that case the import statement should come in first position as it is the case in our listing example. The imported graph gets a variable name specified by the keyword \lstinline[language=MGL]{as}, hence can be reference throughout the entire code (see line~\ref{line:extRef}). Next, we specify the style to be used for the graphical representation of each model element; line~\ref{line:styl} at global level and in line~\ref{line:styStart} and~\ref{line:styEnd} i.e.\ at node level. Note that the style defined at node level have to exist in a dedicated style file prior to assigning them here, otherwise a compile error is raised until the missing style is added and saved.
+As illustrated below in listing~\ref{docMGL}, we first begin by determining giving the graph an id (line~\ref{line:id}), that will be use as the package name containing all classes generated base on the herein specified nodes. Optionally, we could also import an external graph; in that case the import statement should come in first position as it is the case in our listing example. The imported graph gets a variable name specified by the keyword \lstinline[language=MGL]{as}, hence can be reference throughout the entire code (cf.\ line~\ref{line:extRef}). Next, we specify the style to be used for the graphical representation of each model element; line~\ref{line:styl} at global level and in line~\ref{line:styStart} and~\ref{line:styEnd} i.e.\ at node level. Note that the style defined at node level have to exist in a dedicated style file prior to assigning them here, otherwise a compile error is raised until the missing style is added and saved.
 
 \begin{lstlisting}[language=MGL, caption={Doc.mgl for the user sequence graph model}, label=docMGL, escapechar=|, name=DocMGL]
     import "model/Doc.mgl" as docMgl |\label{line:extRef}|
@@ -30,7 +30,7 @@ As illustrated below in listing~\ref{docMGL}, we first begin by determining givi
 
     @primeviewer
     @mcam("check")
-    @generatable("info.scce.cinco.product.userdocumentation.codegen.Generate", "/src-gen/")
+    @generatable("info.scce.cinco.product.userdocumentation.codegen.Generate", "/src-gen/") |\label{line:annotation}|
     graphModel FeatureGraphModel { |\label{line:modelStart}|
         iconPath "icons/16/feature_16.png"
         diagramExtension "feat"
@@ -53,7 +53,7 @@ As illustrated below in listing~\ref{docMGL}, we first begin by determining givi
 
     @icon("icons/16/container_16.png")
     container FeatureContainer {
-        style featureContainer("${title}")
+        style featureContainer("${title}") |\label{line:formatstring}|
         containableElements(
             Start[1,1],
             End[1,1],
@@ -86,13 +86,128 @@ Then from line~\ref{line:modelStart} to~\ref{line:modelEnd} we define some impor
 
 Last, from line~\ref{line:nodes} to the end, we define graph model nodes by associating an existing style in the file specified by the \lstinline[language=MGL]{stylePath} keyword and restricting the type of edges that can be connect from an to them. In our case, the start node can only have an outgoing edge of the type \lstinline[language=MGL]{Transition} and opposed that the end node can only be connected one incoming transition edge. Those constraints are enforced using multiplicity statements like in \acrfull{uml} diagrams. In the same manner, container nodes can be given a style, attributes and incoming and/or outgoing edges with multiplicity constraints. In line~\ref{line:edge} we see a definition of the \lstinline[language=MGL]{edge} element that will connect model elements.
 
-Additonal elements can be 
+Additional elements like \lstinline[language=MGL]{enum} and user custom type introduced by keyword \lstinline[language=MGL]{type} can be added to create more tailored model elements. It is also possible to use annotation, which will be interpreted by external plugins, to add more functionality to node element. For example, line~\ref{line:annotation} shows a use of the \lstinline[language=MGL]{@generatable} annotation, which allows for code generation within the graphical editor. Here we give as parameter the Xtend class that will generate the code and the output folder.
 
 For demonstration purposes, we kept our example listings short. An exhaustive list of all the usable elements and annotations can be found on the CINCO's~\href{https://gitlab.com/scce/cinco/-/wikis/Cinco-Product-Specification}{Wiki page}.
 
 \section{Meta Style Language}\label{sec:MSL}
 The appearance of all the elements defined in the \acrshort{mgl} are laid down using the textual language named \acrfull{msl}. As explained in~\cite{gitlabcinco}, three essential elements constitute the design of a \acrshort{mgl} model, namely: \textbf{appearance}, \textbf{nodeStyle} and the \textbf{edgeStyle}.
 
+Each nodeStyle specification makes use of an appearance element, which in fact determines the attributes like background color, the thickness of the drawn lines and so on. The beginning of listing~\ref{docStyle} shows the use of those attributes. It is also possible to control the appearance dynamically at runtime by associating to the concerned nodeStyle an appearance provider (cf.\ line~\ref{line:appearanceProvider}), which is in fact the implementation of the CINCO meta core interface \lstinline{StyleAppearance}. The nodeStyle is hierarchically composed of a shape that can be given a \lstinline[language=MGL]{size}, \lstinline[language=MGL]{position} and a \lstinline[language=MGL]{text} element with a \lstinline[language=MGL]{value} attribute that takes a (format) string (line~\ref{line:shape}). Either the graph element in the \acrshort{mgl} using corresponding style has to provide a an attribute of type \lstinline{EString} that will be display in the graphical model (see line~\ref{line:formatstring} in listing~\ref{docMGL}) or the string provided by the value attribute is display. One other way to represent a node graphically is to use an \lstinline[language=MGL]{image} component instead of a shape element and provide a path to the image file --- like done for the \lstinline{screenshotNode} nodeStyle in line~\ref{line:image}.
+
+\begin{lstlisting}[language=MGL, caption={Doc.style: styles to be applied to Doc.mgl}, label=docStyle, escapechar=|, name=docMSL]
+    /*---------------- Appearances ------------------------*/
+
+    appearance default { |\label{line:appearance}|
+        lineWidth 1
+        background (255,255,255)
+    }
+
+    appearance redBorder extends default { |\label{line:inheritance}|
+        foreground (164,29,29)
+        background (224,27,36)
+    }
+
+    appearance labelFont {
+        font ("Sans",10)
+    }
+
+    /*---------------- Node Elements ------------------------*/
+
+    nodeStyle startNode {
+        roundedRectangle { |\label{line:shape}|
+            appearance extends default {
+                foreground (46,194,126)
+                background (46,194,126)
+            }
+            position (0, 0)
+            size (96, 32)
+            corner (8, 8)
+            text {
+                position (CENTER, MIDDLE)
+                value "Start"
+            }
+        }
+    }
+
+    nodeStyle endNode {
+        roundedRectangle {
+            appearance extends default {
+                foreground (237,51,59)
+                background (237,51,59)
+            }
+            position (0, 0)
+            size (96, 32)
+            corner (8, 8)
+            text {
+                position (CENTER, MIDDLE)
+                value "End"
+            }
+        }
+    }
+
+    nodeStyle inputNode(1) {
+        appearanceProvider("info.scce.cinco.product.userdocumentation.appearance.HighlightInputNodeAppearance") |\label{line:appearanceProvider}|
+        roundedRectangle outer {
+            appearance extends default {
+                foreground (245,245,245)
+                lineWidth 3
+            }
+            size(62,62)
+            corner(8,8)
+            roundedRectangle inner {
+                appearance default
+                position(CENTER,MIDDLE)
+                size(60,60)
+                corner(8,8)
+                text {
+                    position ( CENTER, MIDDLE )
+                    value "%s"
+                }
+            }
+        }
+    }
+
+    nodeStyle screenshotNode { |\label{line:image}|
+        image {
+            size (32, 32)
+            path ("icons/32/browser_32.png")
+        }
+    }
+\end{lstlisting}
+
+Similarly, the edgeStyle is defined with an appearance component as well as a decorator. The appearance specifies the look of the edge line drawn in the diagram and the decorator draws the shape of the endings (see line~\ref{line:edgeStyle} in listing~\ref{docStyle2}). Possible shapes are ARROW, DIAMOND, CIRCLE and TRIANGLE\@.~\cite{gitlabcinco} offers a exhaustive documentation on the CINCO Product Specification.
+
+It is also worth mentioning that the concept of inheritance in the \acrfull{oop} can be applied between meta model element of the same type, hence avoiding repetitive definition of the same attributes within multiple different elements and allowing some elements to extends the properties of the parent elements. For example, we see in line~\ref{line:inheritance} the \lstinline{redBorder} appearance extends the default one and at the same time redefines the background color.
+
+\begin{lstlisting}[language=MGL, caption={Doc.style part 2}, label=docStyle2, escapechar=|, name=docMSL]
+    /*---------------- Edges ------------------------*/
+
+    edgeStyle simpleArrow { |\label{line:edgeStyle}|
+        appearance default
+
+        decorator {
+            location (1.0)
+            ARROW
+            appearance default
+        }
+    }
+
+    edgeStyle commentArrow {
+        appearance extends default {
+            lineStyle DOT
+        }
+
+        decorator {
+            location (1.0)
+            ARROW
+            appearance default
+        }
+    }
+\end{lstlisting}
+
 \section{Cinco Product Definition}\label{sec:CPD}
+
+The \acrfull{cpd} is 
 
 \section{Xtend Generators}\label{sec:GEN}
