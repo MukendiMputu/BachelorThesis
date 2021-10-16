@@ -1,13 +1,12 @@
 % Chapter 1
 
-\chapter{Model-Driven Development with CINCO}\label{ch:Basis}
+\chapter{Introduction to Model-Driven Development with CINCO}\label{ch:Basis}
 
-This chapter lays down the fundamentals of the \acrfull{mdd} using the CINCO SCCE Meta Tooling Framework, as well as the steps necessary to get up and running with the framework.
-The term \acrshort{mdd} refers to software development paradigm where the functionalities of the software are first specified as models, from which then executable code can be automatically generated. To create and use models to represent the software system, a \acrfull{dsl} that is close to the problem domain, is needed. Application domain experts possess the knowledge of the application structure, which they represent in form of models. Domain experts and application programmers have to agree on how the specification language determines syntax and semantic of the model elements.
+This chapter lays down the fundamentals of the \acrfull{mdd} using the CINCO SCCE Meta Tooling Framework, as well as the steps necessary to get up and running with the framework. The term \acrshort{mdd} refers to a development paradigm where the functionalities of the software are first specified as models, from which then executable code can be automatically generated. To create and use models to represent the software system, a \acrfull{dsl} that is close to the problem domain, is needed. Application domain experts possess the knowledge of the application structure, which they represent in form of models. Domain experts and application programmers have to agree on how the specification language determines syntax and semantic of the model elements.
 
 \section{Core Principles of Model-Driven Development}
 
-The core principles of \acrfull{mdd} reside in the fact that software development is accelerated by providing a simple, but efficient abstraction of the software structure as a model. Those model abstraction, representation of real-world objects, are converted trough a series of model-to-model or model-to-code transformations~\cite{stahl_et_al}. Our work is to utilize the \acrshort{dsl} provide by the CINCO framework to design our graphical \acrshort{dsl}, which in turn will permit the generation of a functioning \gls{Selenium} Java application.
+The core principles of \acrfull{mdd} reside in the fact that software development is accelerated by providing a simple, but efficient abstraction of the software structure as a model. Those model abstraction, representation of real-world objects, are transposed trough a series of model-to-model or model-to-code transformations~\cite{stahl_et_al}. Our work is to utilize the \acrshort{dsl} provide by the CINCO framework to design our graphical \acrshort{dsl}, which in turn will permit the generation of a functioning \gls{Selenium} Java application.
 
 Opposed to the common development method, applying a graphical model to layout the different user sequences allows even non-programmer (here the domain expert with much more expertise on how to design a great software documentation) to accomplish the task of documenting the features offered by the web application. Nonetheless, the programmer has the tasks -- in collaboration with the domain expert -- to specify the meaning of each model element for the code generation process.
 
@@ -15,13 +14,16 @@ When applied correctly, the result of the model-driven development process is a 
 
 \section{Domain Specific Language}
 
-A \acrfull{dsl}, as the name suggests, is a language adapted to specific development domain.~\cite{Naujokat2018} gives a succinct analogy to DSLs by saying that it is comparable to a tool specially crafted only for one specific task as opposed to general programming languages that can be seen as tools for multiple different tasks. If we stick to this analogy, just as one would start with a blueprint to construction a mechanical tool, designing as DSL required similar steps. One have to conceptually lay out the behavior and eventually --- in case it is a graphical language we want to design --- the look of each element that can be used in our DSL\@. 
+A \acrfull{dsl}, as the name suggests, is a language adapted to specific development domain.~\cite{Naujokat2018} gives a succinct analogy to DSLs by saying that it is comparable to a tool specially crafted only for one specific task as opposed to general programming languages that can be seen as tools for multiple different tasks. If we stick to this analogy, just as one would start with a blueprint to construction a mechanical tool, designing as DSL required similar steps. One have to conceptually lay out the behavior and eventually --- in case it is a graphical language we want to design --- the look of each element that can be used in our DSL. 
 
-Blueprinting our DSL is equivalent to defining a meta-language or meta-DSL to our language. \textit{Meta} literally means \textit{situated behind or beyond}. So the meta-language is the descriptive language coming before our language, describing the meaning (semantic) and the relationship between the objects of our target language. In other words, the meta-DSL is the abstract syntax and the resulting DSL concrete syntax. It is possible to ascend the modelling hierarchy of meta definition until we reach a self-referencing language, like it is the case \acrfull{uml}.
-
-\begin{figure}[h]
-    \includegraphics[width=0.80\textwidth]{dsl_hierarchy.png}
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{dsl_hierarchy.png}
     \caption{Hierarchy of our graphical DSL specification}\label{fig:modelling-hierachy}
 \end{figure}
 
-In our case, we want a graphical language for creating models that represent the different parts of a web application and how the end-user can possibly interact with them. The meta-language to our graphical DSL is provided by the CINCO SCCE Meta Tooling framework. It comprises the \acrfull{mgl}, the \acrfull{msl} and the \acrfull{cpd}. Coming chapters will explain those concepts in detail. Figure~\ref{fig:modelling-hierachy} shows the modelling hierarchy of our graphical DSL\@.
+Blueprinting our DSL is equivalent to defining a meta-language or meta-DSL to our language. \textit{Meta} literally means \textit{situated behind or beyond}. So the meta-language is the descriptive language coming before our language, describing the meaning (semantic) and the relationship between the objects of our target language. In other words, the meta-DSL is the abstract syntax and the resulting DSL concrete syntax. It is possible to ascend the modelling hierarchy of meta definition until we reach a self-referencing language, like it is the case \acrfull{uml}.
+
+In our case, we want a graphical language for creating models that represent the different parts of a web application and how the end-user can possibly interact with them. The meta-language to our graphical DSL is provided by the CINCO SCCE Meta Tooling framework. It comprises the \acrfull{mgl}, the \acrfull{msl} and the \acrfull{cpd}~\ref{fig:modelling-hierachy}, all has been constructed using Xtext, a language Workbench for writing textual \acrshortpl{dsl}. Coming chapters will explain those concepts in detail.
+
+\section{CINCO SCCE Meta Tooling Framework}\label{sec:cincoTool}
+
