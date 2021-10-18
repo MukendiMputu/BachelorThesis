@@ -1,16 +1,23 @@
 % Chapter3.tex
 \chapter{\textsc{Cinco} Product Application}\label{ch:CP}
 
-Having described the meta-level of the user documentation model, we come now to the description of the graphical model instantiated from it. The goal of this chapter is to explain the the appearance and behavior of the various model elements. First, we give a strict definition of a graphical DSL, then illustrate the fundamental building blocks of our documentation model. Later on, we demonstrate the use of these graphical elements to specify the important configuration of the website that we want to document. At the end, we show how using the editor built-in generator, a project structure, that constitute the target application, is generated.
+Having described the meta-level of the user documentation model, we come now to the description of the graphical model editor instantiated from it. The goal of this chapter is to explain the the appearance and behavior of the various model elements. First, we give a succinct definition of a graphical DSL, then illustrate the fundamental building blocks of our documentation model and presenting in the same time the \textsc{Cinco} product application. Later on, we demonstrate the use of these graphical elements to specify the important configuration of the website we want to document. At the end, we show how using the editor built-in generator, a project structure, that constitute the target application, is generated.
 
 \section{Graphical DSL}\label{sec:gDSL}
 
-Under \acrfullpl{dsl} we understand a languages tailored to describe or solve problems in a specific computational domain. They represent the core concept of most state of the art programming paradigms~\cite{perez-et_al}. As stated in~\cite{Naujokat2018}, one of their great advantage is that they permit domain experts with no programming experience to design application by means of graphical components, whose behavior and semantic meaning on the other hand have been or will be programed by developers with coding experience.
+Under \acrfullpl{dsl} we understand a languages tailored to describe or solve problems in a specific computational domain. They represent the core concept of most state-of-the-art software development paradigms~\cite{perez-et_al}. As stated in~\cite{Naujokat2018}, one of their great advantage is that they permit domain experts with no programming experience to design application by means of graphical components, whose behavior and semantic meaning on the other hand have been or will be programed by developers with coding experience. The graphical property --- meaning that there is no use of textual grammar to construct a model --- adds an abstraction layer that eliminates a bit further the necessity of mastering the syntax of the underlying DSL, as well as the \acrshortpl{api} intertwining the meta-model elements.
 
-As a matter of fact, \acrshortpl{dsl} can be used in any thinkable domain because instances of a DSL are models and those can be used to represent any real-live object with all its possible interaction in a given environment.
+In our case, the graphical model is composed of node elements, which have been applied different appearances to, in order to resemble to some extent the corresponding web element they represent. The purpose behind this approximated replication is not to recreate all possible web elements, but to give the developer a sense of control over the interactable UI elements. Hence
 
 \section{Model Graphs}\label{sec:ModElem}
 
+
+The example model shown below illustrate the element an end-user would eventually interact with and how combined into a logical sequence, they form a user workflow. The editor is mainly composed of the canvas in the middle of the working environment (1), where the developer can drag and drop model elements from the palette located on the right-hand side (2). Herein, elements can be grouped in a single category; this is achieved using the \lstinline[language=MGL]{@palette("category name")} annotation in the~.mgl meta-specification (see line~\ref{line:paletteAnnotation} in listing~\ref{docMGL}). By hovering over a model element an arrow symbol appears, allowing the developer to similarly drag and drop connecting edges from the source to the target element.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{random-300x200.jpg}
+    \caption{Hierarchy of our graphical DSL specification}\label{fig:graphDSL}
+\end{figure}
 
 \subsection{User Action Model Elements}\label{sec:FuncElem}
 
