@@ -291,12 +291,7 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
-## Lockfile on PowerPoint file
-~$Proposalvortrag.pptx
 
 ## Kile specific files
 .kile
 .directory
-bachelorthesis.kilepr
-main.pdf
-books
