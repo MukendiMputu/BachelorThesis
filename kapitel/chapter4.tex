@@ -11,13 +11,35 @@ In our case, the graphical model is composed of node elements, which have been a
 
 \section{Model Graphs}\label{sec:ModElem}
 
-
-The example model shown below illustrate the element an end-user would eventually interact with and how combined into a logical sequence, they form a user workflow. The editor is mainly composed of the canvas in the middle of the working environment (1), where the developer can drag and drop model elements from the palette located on the right-hand side (2). Herein, elements can be grouped in a single category; this is achieved using the \lstinline[language=MGL]{@palette("category name")} annotation in the~.mgl meta-specification (see line~\ref{line:paletteAnnotation} in listing~\ref{docMGL}). By hovering over a model element an arrow symbol appears, allowing the developer to similarly drag and drop connecting edges from the source to the target element.
+The example model shown below illustrate the element an end-user would eventually interact with and how combined into a logical sequence, they form a user workflow. The editor is mainly composed of the canvas in the middle of the working environment (1), where the developer can drag and drop model elements from the palette located on the right-hand side (2). Herein, elements can be grouped in a single category; this is achieved using the \lstinline[language=MGL]{@palette("category name")} annotation in the~.mgl meta-specification (see line~\ref{line:paletteAnnotation} in listing~\ref{docMGL}). On the left-hand side we have the project explorer showing the current project structure (3). The main model files have the extensions .. By hovering over a model element an arrow symbol appears, allowing the developer to similarly drag and drop connecting edges from the source to the target element.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{random-300x200.jpg}
-    \caption{Hierarchy of our graphical DSL specification}\label{fig:graphDSL}
+    \centering
+    \includegraphics[width=\textwidth]{DocGraphModelChecks.png}
+    \caption{\textsc{Cinco} product - graph model editor application}\label{fig:graphDSL}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics{GenerateButton}
+        \caption{A gull}
+        \label{fig:gull}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics{GenerateButton}
+        \caption{A tiger}
+        \label{fig:tiger}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics{GenerateButton}
+        \caption{A mouse}
+        \label{fig:mouse}
+    \end{subfigure}
+\end{figure}
+
 
 \subsection{User Action Model Elements}\label{sec:FuncElem}
 

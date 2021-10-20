@@ -17,8 +17,10 @@ When applied correctly, the result of the model-driven development process is a 
 A \acrfull{dsl}, as the name suggests, is a language adapted to specific development domain.~\cite{Naujokat2018} gives a succinct analogy to \acrshortpl{dsl} by saying that it is comparable to a tool specially crafted only for one specific task as opposed to general programming languages that can be seen as tools for multiple different tasks. If we stick to this analogy, just as one would start with a blueprint to construction a mechanical tool, designing as DSL required similar steps. One have to conceptually lay out the behavior and eventually --- in case it is a graphical language we want to design --- the look of each element that can be used in our DSL. 
 
 \begin{figure}[H]
+    \centering
     \includegraphics[width=\textwidth]{dsl_hierarchy.png}
-    \caption{Hierarchy of our graphical DSL specification}\label{fig:modelling-hierachy}
+    \caption{Hierarchy of our graphical DSL specification}
+    \label{fig:modelling-hierachy}
 \end{figure}
 
 Blueprinting our DSL is equivalent to defining a meta-language or meta-DSL to our language. \textit{Meta} literally means \textit{situated behind or beyond}. So the meta-language is the descriptive language coming before our language, describing the meaning (semantic) and the relationship between the objects of our target language. In other words, the meta-DSL is the abstract syntax and the resulting DSL concrete syntax. It is possible to ascend the modelling hierarchy of meta definition until we reach a self-referencing language, like it is the case \acrfull{uml}.
