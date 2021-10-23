@@ -9,15 +9,22 @@ Under \acrfullpl{dsl} we understand a languages tailored to describe or solve pr
 
 In our case, the graphical model is composed of node elements, which have been applied different appearances to, in order to resemble to some extent the corresponding web element they represent. The purpose behind this approximated replication is not to recreate all possible web elements, but to give the developer a sense of control over the interactable UI elements. Hence
 
-\section{Model Graphs}\label{sec:ModElem}
+\section{Graph Editor}\label{sec:graphEditor}
 
-The example model shown below illustrate the element an end-user would eventually interact with and how combined into a logical sequence, they form a user workflow. The editor is mainly composed of the canvas in the middle of the working environment (1), where the developer can drag and drop model elements from the palette located on the right-hand side (2). Herein, elements can be grouped in a single category; this is achieved using the \lstinline[language=MGL]{@palette("category name")} annotation in the~.mgl meta-specification (see line~\ref{line:paletteAnnotation} in listing~\ref{docMGL}). On the left-hand side we have the project explorer showing the current project structure (3). The main model files have the extensions .. By hovering over a model element an arrow symbol appears, allowing the developer to similarly drag and drop connecting edges from the source to the target element.
+The editor is mainly composed of the canvas in the middle of the working environment (1), where the developer can drag and drop model elements from the palette located on the right-hand side (2). Herein, elements can be grouped in a single category; this is achieved using the \lstinline[language=MGL]{@palette("category name")} annotation in the~.mgl meta-specification (see line~\ref{line:paletteAnnotation} in listing~\ref{docMGL}). On the left-hand side we have the project explorer showing the current project structure (3). The main model files have the extensions .doc and .feat, where the latter is the entry point of the documentation application. By hovering over a model element an arrow symbol appears, allowing the developer to similarly drag and drop connecting edges from the source to the target element. All diagrams that are open in the editor are checked in the background for compliance with the requirements described on the meta-level using the \lstinline[language=MGL]{@mcam("check")} and shown in the Model Checking view right beneath the project explorer (4). There's also the \textsc{Cinco} property view (5) that displays the property of any selected element in the editor. This is where the developer can modify attribute values of the model elements.
+
+The example model shown below illustrate the element an end-user would eventually interact with and how combined into a logical sequence, they form a user workflow. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{DocGraphModelChecks.png}
     \caption{\textsc{Cinco} product - graph model editor application}\label{fig:graphDSL}
 \end{figure}
+
+The palette view presents a list of all the available graph model elements (see table~\ref{tab:listOfElements}). Since we specified two different \acrshortpl{mgl}, the list in the DocGraphModel differs from the one in the FeatureGraphModel. For the DocGraphModel a more complete list of element has been specified. That is because the user action sequence is modeled herein and hence, there are more elements from here, especially web elements the user can interact with.
+
+As mentioned before, the prominent feature of \textsc{Cinco} is the generate button. This allows the developer, after the modeled has been laid out without errors, to generate the a fully realized Selenium-Java application, which is going to execute the user sequence model just created. Figure~\ref{fig:genButton} show where to locate the generate button.
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
@@ -41,11 +48,17 @@ The example model shown below illustrate the element an end-user would eventuall
 \end{figure}
 
 
+\subsection{Feature Model Elements}\label{sec:ConfElem}
+
+
 \subsection{User Action Model Elements}\label{sec:FuncElem}
-
-
-\subsection{Configuration Elements}\label{sec:ConfElem}
 
 
 \section{Generation Process}\label{sec:GenProcess}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{GenerateButtonHighlighted.png}
+    \caption{\textsc{Cinco} product - generator button}
+    \label{fig:genButton}
+\end{figure}
