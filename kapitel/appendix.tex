@@ -1,4 +1,4 @@
-% anhang.tex
+% Appendix.tex
 \chapter{Further Information}
 
 \begin{table}[H]
@@ -48,3 +48,25 @@
     \end{tabular}
     \label{tab:listOfElements}
 \end{table}
+
+
+\begin{lstlisting}[language=MGL, caption={Generate.xtend clas implementing the IGenerator infterface}, label=generate, escapechar=|]
+        package info.scce.cinco.product.userdocumentation.codegen
+        
+        import info.scce.cinco.product.features.main.feature.FeatureGraphModel
+        import de.jabc.cinco.meta.plugin.generator.runtime.IGenerator
+        import org.eclipse.core.runtime.IProgressMonitor
+        import org.eclipse.core.runtime.IPath
+        
+        /**
+         * @author Mukendi Mputu
+         */
+        class Generate implements IGenerator<FeatureGraphModel> {
+        
+                /*	*/
+                override generate(FeatureGraphModel model, IPath srcGenPath, IProgressMonitor arg2) {
+                        new UserDocProjectGenerator(model).createProject
+                }
+                
+        }
+\end{lstlisting}
