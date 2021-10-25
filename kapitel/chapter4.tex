@@ -21,7 +21,7 @@ The editor is mainly composed of the canvas in the middle of the working environ
 
 All diagrams that are open in the editor are checked in the background for compliance with the requirements described on the metalevel using the \lstinline[language=MGL]{@mcam("check")} and shown in the Model Checking view right beneath the project explorer (4). There's also the \textsc{Cinco} property view (5) that displays the attributes and values of any selected element in the editor. This is where the developer can modify those values if the attribute field allows it.
 
-The example model shown in Figure~\ref{fig:loginSeq} illustrate the sequence an end-user would eventually undergo to login to the web application. Showing the web elements that will be interacted with and how combined into a logical sequence, they form a user workflow. The sequence begins with the start node then comes a navigation node with the link attribute pointing to \lstinline{http://localhost:8080}, the landing page of our TODO Web App in development.Next, the timer node waits explicitly for an amount of second the designer specified in the property view. The palette view presents a list of all the available graph model elements (see table~\ref{tab:listOfElements}). Since we specified two different \acrshortpl{mgl}, the list in the DocGraphModel differs from the one in the FeatureGraphModel. For instance, the DocGraphModel has a whole category for web elements specified, because the user action sequence is modeled using common UI elements of the web interface; whereas the FeatureGraphModel is specially there to provide some start configuration (e.g. the path to the webdriver executable to be used)
+The example model shown in Figure~\ref{fig:loginSeq} illustrate the sequence an end-user would eventually undergo to login to the web application. Showing the web elements that will be interacted with and how combined into a logical sequence, they form a user workflow. The sequence begins with the start node then comes a navigation node with the link attribute pointing to \lstinline{http://localhost:8080}, the landing page of our TODO Web App in development.Next, the timer node waits explicitly for an amount of second the designer specified in the property view. The palette view presents a list of all the available graph model elements (see table~\ref{tab:listOfElements}). Since we specified two different \acrshortpl{mgl}, the list in the DocGraphModel differs from the one in the FeatureGraphModel. For instance, the DocGraphModel has a whole category for web elements specified, because the user action sequence is modeled using common UI elements of the web interface. On the other hand, the FeatureGraphModel is specially there to provide some start configuration (e.g. the path to the webdriver executable to be used), meaning that it regroups all the features modeled in every DocGraphModel, builds up both project structures mentioned before and triggers the code generation for every single one of them.
 
 \begin{figure}[h]
     \centering
@@ -32,7 +32,7 @@ The example model shown in Figure~\ref{fig:loginSeq} illustrate the sequence an 
 
 \section{Feature Model Elements}\label{sec:FeatModElem}
 
-The feature graph model is the application starting point. Here, the developer groups all the feature that needs to be documented in feature containers. 
+The feature graph model is the application starting point. Here, the developer groups all the feature that needs to be documented in feature containers. Figure~\ref{fig:featGraph} depicts a portion of the features modeled for our TODO application. The important abilities of the web application are regrouped here: the ability to login, to create a new list, add a task to that list or remove it and lastly delete the whole list. Nonetheless, our TODO application offers the possibility to also add a new list owner, which already exist in the system as regular user. Those features are not represented to reasonable size of the image where the elements are clearly seen. On the top left-hand corner you can see an property container holding the webdriver property, whose value is set to \lstinline[language=MGL]{FIREFOX}. This value will be assigned to the Selenium webdriver variable in the Java class. Remember that the executable file for the chosen webdriver muss already exist somewhere in file system and the path to it has to been specified here in the property view.
 
 \begin{figure}[H]
     \centering
@@ -40,6 +40,8 @@ The feature graph model is the application starting point. Here, the developer g
     \caption{\textsc{Cinco} product - Feature Graph Model with Feature Containers}
     \label{fig:featGraph}
 \end{figure}
+
+Even though we represented the features in logical order, they still are independent from one another and will be generate in the same manner. This separation does not exclude reusability, since it is possible to integrate a whole DocGraphModel inside another one.
 
 \section{User Action Model Elements}\label{sec:DocModElem}
 

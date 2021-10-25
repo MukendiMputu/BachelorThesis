@@ -15,7 +15,6 @@
 \usepackage[acronym, toc]{glossaries}
 \input{literatur/glossary.tex}
 
-
 % Theorem environment
 \usepackage[amsmath,thmmarks]{ntheorem}
 
@@ -152,6 +151,9 @@
 \newcommand{\blankpage}{
  \clearpage{\pagestyle{empty}\cleardoublepage}
 }
+
+% Kind of todo mark
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
 
 % Image path
 \graphicspath{{bilder/}}
