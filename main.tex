@@ -7,7 +7,6 @@
 \pagenumbering{roman}
 \tableofcontents
 \cleardoublepage{}
-\printglossary[type=\acronymtype]
 \pagenumbering{arabic}
 
 % Chapters
@@ -42,8 +41,8 @@
 %\cleardoublepage{}
 
 % Lexicon
-% \setglossarystyle{altlist} 
-% \printglossary[title=List of terms, toctitle=List of terms]
+\printnoidxglossary[style=altlist,title=Glossary]
+\printnoidxglossary[type=\acronymtype, nogroupskip, title=Abbreviations]
 
 % Bibliography
 \bibliographystyle{gerplain}

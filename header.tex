@@ -5,14 +5,34 @@
 
 \usepackage[english]{babel}
 
-\usepackage[pdftex]{graphicx,color}
+\usepackage[pdftex]{graphicx,xcolor}
 \usepackage{amsmath,amssymb}
+
+% Bibtex german
+\usepackage{bibgerm}
+
+% URLs
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    linktocpage=true,
+    filecolor=magenta,     
+    citecolor=green,
+    urlcolor=magenta,
+    pdftitle={DSL-Driven Generation of User Documentation}, 
+    pdfauthor={Mukendi Mputu}
+}
+\urlstyle{same}
 
 % Figure packages
 \usepackage{subcaption}
 \usepackage{multirow}
+
 % List of Abbreviation
-\usepackage[acronym, toc]{glossaries}
+\usepackage[xindy, nonumberlist, acronym, toc]{glossaries}
+
 \input{literatur/glossary.tex}
 
 % Theorem environment
@@ -47,7 +67,7 @@
   morecomment=[s]{/*}{*/},
   morestring=[b]',
   morestring=[b]"
-  }
+}
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codeblue}{rgb}{0,0,0.6}
 \definecolor{codegray}{rgb}{0.3,0.3,0.3}
@@ -70,26 +90,9 @@
 }
 \lstset{style=mystyle}
 
-% Bibtex german
-\usepackage{bibgerm}
-
-% URLs
-\usepackage{url}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    linktocpage=true,
-    filecolor=magenta,     
-    citecolor=green,
-    urlcolor=magenta,
-    pdftitle={DSL-Driven Generation of User Documentation}, 
-    pdfauthor={Mukendi Mputu}
-}
-\urlstyle{same}
-
 % Caption Packet
 \usepackage[margin=0pt,font=small,labelfont=bf]{caption}
+
 % Set outline
 %\setcounter{secnumdepth}{5}
 %\setcounter{tocdepth}{5}

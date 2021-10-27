@@ -1,9 +1,14 @@
 % Glossary.tex
-\makeglossaries{}
+\makenoidxglossaries 
 
-\newglossaryentry{Selenium}{
+\setacronymstyle{footnote-sc}
+
+\glshyperfirsttrue
+\glsacrfootnotetrue
+
+\newglossaryentry{selenium}{
     name={Selenium},
-    description={Selenium is a suite of tools for automating web browsers.}
+    description={Selenium is a suite of tools for automating web browsers. See \url{https://www.selenium.dev/about/}}
 }
     
 \newglossaryentry{VuePress}{
@@ -12,8 +17,8 @@
 }
     
 \newglossaryentry{Document Object Model}{
-    name={VuePress},
-    description={The Document Object Model (DOM) is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree, according to Wikipedia}
+    name={DOM},
+    description={The Document Object Model (DOM) is a cross-platform and language-independent interface that treats an XML or HTML document as a tree structure wherein each node is an object representing a part of the document. The DOM represents a document with a logical tree. \url{https://en.wikipedia.org/wiki/Document_Object_Model}}
 }
 
 \newglossaryentry{Ecore}{
@@ -27,6 +32,7 @@
 \newacronym{dom}{DOM}{Document Object Model}
 \newacronym{ui}{UI}{User Interface}
 \newacronym{mdd}{MDD}{model-driven development}
+\newacronym{mdsd}{MDSD}{model-driven software development}
 \newacronym{jabc}{jABC}{Java Application Building Center}
 \newacronym{emf}{EMF}{Eclipse Modeling Framework}
 \newacronym{oop}{OOP}{Object Oriented Programming}
@@ -34,11 +40,9 @@
 \newacronym{cpd}{CPD}{Cinco Product Definition}
 \newacronym{mgl}{MGL}{Meta Graph Language}
 \newacronym{msl}{MSL}{Meta Style Language}
-\newacronym{pom}{POM}{Page Object Model}
-\newacronym{spa}{SPA}{Single Page Application}
 \newacronym{api}{API}{Application Programming Interface}
 \newacronym{iso}{ISO}{International Standards Organization}
-\newacronym{iec}{IEC}{Third abbreviation}
+\newacronym{iec}{IEC}{International Electrotechnical Commission}
 \newacronym{ieee}{IEEE}{Institute of Electrical and Electronics Engineers}
 
-\glsaddall{}
+%\glsaddall{}
