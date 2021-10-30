@@ -2,13 +2,27 @@
 
 \chapter{Preliminary}\label{ch:Basis}
 
-This chapter introduces the various notions necessary for achieving our goal. We first look at what need to appear in the structure of our end user documentation as recommended by known standards and what technologies are actually available to help us complete this task. Then we will allude the fundamentals of model-driven development with the \textsc{Cinco} Meta Tooling Suite.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{WebDocDevelopment-all.pdf}
+    \label{fig:procWorkflow}
+\end{figure}
+
+This chapter introduces the various notions necessary for achieving our goal. We first look at the structure of our end user documentation as recommended by known standards and what technologies are actually available to help us complete this task. Then we will allude the fundamentals of model-driven development with the \textsc{Cinco} Meta Tooling Suite, while introducing the meta languages we based our graphical models on and explain briefly what need to be generated from those models.
+
+\pagebreak
 
 \section{End User Documentation}\label{sec:endUserDoc}
 
 The value of a good software product, in fact, of any product destined to be brought to the consumer is determined on how effective the end user is able to learn to use the product. Hence, putting a great effort to generate and manage a useful, well-structured documentation is as much important as the development of the product itself~\cite{ISO-IEC-IEEE}. 
 
 End user documentation aim to provide the application end users with the information necessary to properly interact with the software. It is part of the development life cycle and the bridge between the product developer and the user~\cite{9238529}. By improving the structure and usefulness of the information delivered to end user, the developer not only reduces significantly the return of calls for support, but enhances also reputation of the product as well as of the producing company~\cite{ieee5712775}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{WebDocDevelopment-userDoc.pdf}
+    \label{fig:userDoc}
+\end{figure}
 
 In this section we will go trough the main characteristics of end user documentation, focusing on the standards establish by the ISO/IEC and the IEEE~\cite{ieee5712775, ISO-IEC-IEEE}. Next we will talk about the specifics of documenting web application by giving an example of a documented web application. We will also present the currently used technologies for creating and managing such documentation. Our main goal is to produce an entire end user documentation page from a graphical model. Before going further, we ought to precise that the type of documentation to be created will depend on how the documentation designer lays out the model, that means the model could be designed to represent a technical documentation -- requiring deep knowledge of the application documented -- or it could also be structured to produce a documentation for simple end users with no technical knowledge at all of the underlying web application~\cite{ieee6081814}.
 
@@ -48,6 +62,12 @@ We will use VuePress to statically launch the end user documentation as a websit
 
 \section{Core Principles of Model-Driven Development}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{WebDocDevelopment-cinco.pdf}
+    \label{fig:corePrincMDD}
+\end{figure}
+
 This section lays down the fundamentals of the \gls{mdd} -- also referred to as \gls{mdsd}~\cite{fowler} --  using the \textsc{Cinco} SCCE Meta Tooling Framework, as well as the steps necessary to get up and running with the framework. The term MDD refers to a development paradigm where the functionalities of the software are first specified as models, from which then executable code can be automatically generated. To create and use models to represent the software system, a DSL that is close to the problem domain, is needed. Application domain experts possess the knowledge of the application structure, which they represent in form of models. Domain experts and application programmers have to agree on how the specification language determines syntax and semantic of the model elements.
 
 The core principles of MDD reside in the fact that software development is accelerated by providing a simple, but efficient abstraction of the software structure as a model. Those model abstraction, representation of real-world objects, are transposed through a series of model-to-model or model-to-code transformations~\cite{stahl_et_al}. Our work is to utilize the DSL provide by the \textsc{Cinco} framework to design our graphical DSL, which in turn will permit the generation of a functioning \gls*{selenium}-Java application (Selenium is a suite of application tools for automating web browsers) to take screenshots of the different web application states.
@@ -82,13 +102,11 @@ The full generation process of a graphical modeling tool (of a \textsc{Cinco} Pr
 
 \subsection{Meta Graph Language}\label{sec:MGL}
 
-The \gls*{mgl} sketches the behavior, the constraints and gathers the all the graphical components that will constitute the model elements that come in use in every graph diagram created in the modeling tool. As a \textsc{Cinco} Product developer, this is most likely the first place to start: the main elements that can be define in a MGL are \textbf{nodes}, \textbf{containers} and \textbf{edges} as illustrates listing~\ref{docMGL}.
+The \gls*{mgl} sketches the behavior, the constraints and gathers the all the graphical components that will constitute the model elements that come in use in every graph diagram created in the modeling tool. As a \textsc{Cinco} Product developer, this is where we start developing our editor application: the main elements that can be define in a MGL are \textbf{nodes}, \textbf{containers} and \textbf{edges} as illustrates listing~\ref{featMGL}.
 
-\begin{lstlisting}[language=MGL, caption={Excerpt from the feature.mgl, meta-specification of the graph model}, label=docMGL, escapechar=|, name=DocMGL]
-    id info.scce.cinco.product.features.main |\label{line:id}|
-    stylePath "model/Feature.style" |\label{line:styl}|
+The main graph model, the \lstinline{FeatureGraphModel}, is the one containing all the features of the web application we want documented. For instance, our  web application provides the login feature as starting point, then after successfully logging in and getting access to the dashboard, task lists can be created or deleted, tasks can be added to or removed from them, etc. The graph diagram can be assigned name and description. We specified \lstinline{.feat} (short for feature) as model extension. And since the login feature i.e.~requires a series of user actions to be performed, the FeatureGraphModel contains another graph model type, where those sequences of actions will be modeled: the \lstinline{DocGraphModel}. It contains the meta specification of all the commonly used web elements (i.e. input field, buttons, dropdown, etc) we want to use in our graph models, as well as sectioning elements to structure the diagram and edges to connect them to each other. The listing below shows a excerpt from the concrete FeatureGraphModel implementation.
 
-    @generatable("info.scce.cinco.userdocumentation.Generate", "/src-gen/") |\label{line:annotation}|
+\begin{lstlisting}[language=MGL, caption={Excerpt from the feature.mgl, meta-specification of the FeatureGraphModel}, label=docMGL, escapechar=|]
     graphModel FeatureGraphModel { |\label{line:modelStart}|
         iconPath "icons/16/feature_16.png"
         diagramExtension "feat"
@@ -107,17 +125,42 @@ The \gls*{mgl} sketches the behavior, the constraints and gathers the all the gr
     
     node DocNode{ |\label{line:docNode}|
         style docNode("${mgl.modelName}")
-        prime docMgl::DocGraphModel as mgl
+        prime docMgl::DocGraphModel as mgl |\label{line:prime}|
         attr EBoolean as createScreenshots := true
         incomingEdges (Edge[1,1])
         outgoingEdges (Edge[1,1])
     }
 \end{lstlisting}
 
-From line~\ref{line:modelStart} to~\ref{line:modelEnd}, we define some important attributes of our graphical DSL. Models instantiated from it will have the icon and the file extension we specified here, as well as the model name and a list of element that can be contained with the modeling canvas.
+As you can see we define a container element to hold the DocGraphModel instances (see lines~\ref{line:featCont} and \ref{line:docNode}). To integrate a whole DocGraphModel inside a FeatureGraphModel we used the so called \textit{PrimeReference}, which is a \textsc{Cinco} feature that allows to reference another model by only one attribute of a node or container~\cite{Cinco}. It is applied by adding the keyword \lstinline[language=MGL]{prime}, as we did in line~~\ref{line:featCont}. By doing so, we can simply drag and drop a DocGraphModel diagram into a FeatureGraphModel diagram to incorporate it.
 
+As for the DocGraphModel, we specified four categories of model elements to use while designing the diagram: the most important ones, the web elements, represent the UI element the user can interact with. The we have the Selenium action nodes, which perform some actions to drive the web browser through the Selenium WebDriver. This are i.e.~the Navigation node to change from one web page to another and the Screenshot node to capture the application current state as an image. Finally, we have the semantic element \lstinline{Comment}, to give a descriptive text to the screenshots and the basic elements (start and end as well as the section node) which help structure the user sequence graph.
 
-Lines~\ref{line:featCont} and \ref{line:docNode} define graph model nodes by associating an existing style (i.e. \lstinline{featureContainer}) from the file specified by the \lstinline[language=MGL]{stylePath} keyword and restricting the type and number of edges that can be connect from and to them. In our case, the feature container node does not have any edges, they are meant to be independent from one another; opposed to that the DocNode node can only have one incoming and outgoing transition edge. This forces more or less the use of single ''pathed'' sequences without ramification.
+\begin{lstlisting}[language=MGL, caption={Excerpt from the Doc.mgl, meta-specification of the DocGraphModel}, label=featMGL, escapechar=|]
+    graphModel DocGraphModel {
+        iconPath "icons/16/sequence_16.png"
+        diagramExtension "doc"
+        containableElements(*)
+        attr EString as modelName := "UserSequence"
+        @multiLine
+        attr EString as documenation := "Lorem ipsum dolor et si met"
+    }
+    
+    node Screenshot {
+        style screenshotNode
+        incomingEdges (Transition[1,1], Anchor[1,*])
+        outgoingEdges (Transition[1,*])
+        attr EString as pictureName
+        attr Comment as description
+    }
+
+    node Input extends WebElement {
+        style inputNode("Input: ${content}")
+        attr EString as content
+        incomingEdges (Transition[0,*])
+        outgoingEdges (Transition[0,*])
+    }
+\end{lstlisting}
 
 For demonstration purposes, we kept our example listings short. An exhaustive list of all the usable elements and annotations can be found on the \textsc{Cinco}'s documentation page\footnote[1]{Wiki page: \url{https://gitlab.com/scce/cinco/-/wikis/Cinco-Product-Specification}}.
 
@@ -125,7 +168,7 @@ For demonstration purposes, we kept our example listings short. An exhaustive li
 
 The appearance of all the elements defined in the MGL are laid down using the textual \glsentryfull{msl}. As explained in~\cite{gitlabcinco}, three essential elements constitute the design of a MSL model, namely: \textbf{appearance}, \textbf{nodeStyle} and the \textbf{edgeStyle}.
 
-Each nodeStyle specification makes use of an appearance element, which in fact determines the attributes like background color, the thickness of the drawn lines and so on (see listing~\ref{docStyle}). The nodeStyle is hierarchically composed of a shape that can be given a \lstinline[language=MGL]{size}, \lstinline[language=MGL]{position} and a \lstinline[language=MGL]{text} element with a \lstinline[language=MGL]{value} attribute that takes a (format) string (line~\ref{line:strFormat}) that will be display in the graphical model.
+Each nodeStyle specification makes use of an appearance element, which in fact determines the attributes like background color, the thickness of the drawn lines and so on (see listing~\ref{docStyle}). The nodeStyle is hierarchically composed of a shape that can be given a \lstinline[language=MGL]{size}, \lstinline[language=MGL]{position} and a \lstinline[language=MGL]{text} element with a \lstinline[language=MGL]{value} attribute that takes a (format) string (line~\ref{line:strFormat}) that will be display in the graphical model. We can say that it is left to the \textsc{Cinco} product developer's imagination to style the elements as seen fit.
 
 \begin{lstlisting}[language=MGL, caption={Excerpt from feature.style to be applied to feature.mgl}, label=docStyle, escapechar=|, name=docMSL]
     nodeStyle featureContainer(1) {
@@ -149,7 +192,7 @@ It is also worth mentioning that the concept of inheritance from the \gls*{oop} 
 
 \subsection{Cinco Product Definition}\label{sec:CPD}
 
-The \glsentryfull{cpd} offers an entry point when it comes to generating the application code. Herein, the \textsc{Cinco} Product Developer has to provide key information like the \textsc{Cinco} product name, at least one or more MGL files to be included into the generation process. Optionally, one can setup a splash screen with branding images, add a descriptive text about the application and specify plugins and/or features~\cite{gitlabcinco}.
+In the \glsentryfull{cpd} is where it all comes together. Herein, the \textsc{Cinco} Product Developer has to provide key information like the \textsc{Cinco} product name, at least one or more MGL files to be included into the generation process. Optionally, one can setup a splash screen with branding images, add a descriptive text about the application and specify plugins and/or features~\cite{gitlabcinco}.
 The listing below gives an insight into the CPD specification language.
 
 \begin{lstlisting}[language=MGL, caption={UserDocumentationTool.cpd}]
@@ -170,7 +213,7 @@ The listing below gives an insight into the CPD specification language.
         linuxIcon "branding/Icon512.xpm"
 	
         about {
-            text "UserDoc is a DSL-driven generator of end user documentation for web application. It is a bachelor thesis project developed with the Cinco SCCE Meta Tooling Suite ( http://cinco.scce.info )."
+            text "WebDoc is a DSL-driven generator of end user documentation for web application. It is a bachelor thesis project developed with the Cinco SCCE Meta Tooling Suite ( http://cinco.scce.info )."
         }
 
         plugins {
@@ -182,8 +225,8 @@ The listing below gives an insight into the CPD specification language.
 
 \subsection{Xtend Generators}\label{sec:GEN}
 
-For our documentation application we need to create two folder structures: one will be the Selenium-Java application with the specific maven project structure. We apply the rule of convention over configuration and generate the Java project as recommended on the Maven Apache \footnote[1]{\url{https://www.apache.org/}} website and add Selenium as a dependency. The other project structure we generate by following convention is for the VuePress project, which in fact is the end result we aim to obtain.
+For our documentation application we need to create two different application folder structures from our model diagrams: the first one is the Selenium-Java application, that basically replays the modeled user action sequences and takes screenshots as laid out by the designer. It follows the specific Maven project structure, for which we applied the rule of convention over configuration as recommended on the Maven Apache \footnote[1]{\url{https://www.apache.org/}} website and added Selenium as a dependency. The other project structure we generate by following convention is for the VuePress project, which in fact is the end result we aim to obtain. In this project, we generate the Markdown files containing all the semantic text the documentation developer specified as description and/or comment in the model elements. This is achieved by following each sequence beginning from the start node all the way through to the end note, constructing a cohesive documentation text.
 
 This generation approach utilizes Java's and Xtend's text templating feature which is based on the generation pattern used in the \glsentryfull{jabc}~\cite{model-driver-dev_jABC,jabc-home}. In fact, many generator classes in our example project implement and extends interfaces from the generator runtime and template package of the jABC \textsc{Cinco} metaplugin.
 
-Additionally, other template classes are implemented to create configuration files, application class files and also Markdown files with the content modeled by the documentation designer in the graph model. In chapter~\ref{ch:intro} section~\ref{sec:objectives} we provided a link to the Github repository, where the complete application code can be found. In the next chapters, we deliver an extended explanation of the generator and feature classes, while introducing our application as an on going example.
+Additionally, other template classes are implemented to create configuration files, application class and project files. In chapter~\ref{ch:intro} section~\ref{sec:objectives} we provided a link to the Github repository, where the complete application code can be found. In the next chapters, we show the output of the generator and feature classes, while introducing our application as an on going example.
