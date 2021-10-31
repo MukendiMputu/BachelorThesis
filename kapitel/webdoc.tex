@@ -69,9 +69,17 @@ The purpose of the Web element nodes is to allow the concrete \gls*{html} elemen
 
 Modeling valid graph diagrams is crucial for the correctness of the generated application code. Especially the Selenium-Java application code has to replicate correctly the user sequence in order capture the correct application state as the user would do. This is particularly daunting if the navigation graph of the underlying Web application is huge.
 
-This means that we have to ensure that there is a distinct for every single using action or that there is no cycle within such path. This strongly reminds of some graph theory problems: checking is a path from start to end node exists and whether or not a given graph is cycle free. The \textsc{Cinco} framework offers a meta plugin ready-to-go for this task, the MCaM Meta Plugin~\cite{gitlabcinco}. The plugin has to be activated by specifying the \lstinline{@mcam("...")} annotation with the corresponding parameter in parentheses.
+This means that we have to ensure that there is a distinct path for every single using action and that there is no cycle within such path. This strongly reminds of some graph theory problems: checking is a path from start to end node exists and whether or not a given graph is cycle free. The \textsc{Cinco} framework offers a meta plugin ready-to-go for this task, the MCaM Meta Plugin~\cite{gitlabcinco}. The plugin has to be activated by specifying the \lstinline{@mcam("...")} or the \lstinline{@mcam_checkmodule("...")} annotation with the corresponding parameter in parentheses. The first one has to be declared right above the \lstinline[language=MGL]{graphModel} declaration with the parameter ''check''; this activates the check on the constraints on the graph nodes, for example the multiplicity of the incoming and outgoing edges between them or containment constraints on container nodes, meaning that they can only contain those node elements explicitly specified with the \lstinline[language=MGL]{containableElements} attribute. The second annotation allows us to specify our own module checks. For instance, we need to ensure that two different screenshot nodes do not bear the same file name or that each sequence starts with the appropriate start node and ends with the end node. We also have to ensure that by integrating graph in another one we do not create cycle within the execution path. 
 
-check also that screenshot files do not have the identical file name
+\begin{figure}[h]
+    \centering
+    \includegraphics{WebDoc-graphModel.png}
+    \caption{Project Validation view showing passed and failed checks}
+    \label{fig:modelChecks}
+\end{figure}
+
+The \textit{Project Validation} view shows all the checks done on the entire project and marks those that failed or passed the checks accordingly. Figure~\ref{fig:modelChecks} shows for example the checks done on our example project.
+
 \section{Generation Process}\label{sec:GenProcess}
 
 \begin{figure}[h]
