@@ -291,3 +291,11 @@
 	year = {2021}
 }
 
+@misc{vuepress,
+	author = {You, Evan},
+	howpublished = {https://vuepress.vuejs.org/},
+	month = oct,
+	title = {VuePress | Vue-powered Static Site Generator},
+	year = {2021}
+}
+
