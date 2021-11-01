@@ -69,31 +69,33 @@ The purpose of the Web element nodes is to allow the concrete \gls*{html} elemen
 
 Modeling valid graph diagrams is crucial for the correctness of the generated application code. Especially the Selenium-Java application code has to replicate correctly the user sequence in order capture the correct application state as the user would do. This is particularly daunting if the navigation graph of the underlying Web application is huge.
 
-This means that we have to ensure that there is a distinct path for every single using action and that there is no cycle within such path. This strongly reminds of some graph theory problems: checking is a path from start to end node exists and whether or not a given graph is cycle free. The \textsc{Cinco} framework offers a meta plugin ready-to-go for this task, the MCaM Meta Plugin~\cite{gitlabcinco}. The plugin has to be activated by specifying the \lstinline{@mcam("...")} or the \lstinline{@mcam_checkmodule("...")} annotation with the corresponding parameter in parentheses. The first one has to be declared right above the \lstinline[language=MGL]{graphModel} declaration with the parameter ''check''; this activates the check on the constraints on the graph nodes, for example the multiplicity of the incoming and outgoing edges between them or containment constraints on container nodes, meaning that they can only contain those node elements explicitly specified with the \lstinline[language=MGL]{containableElements} attribute. The second annotation allows us to specify our own module checks. For instance, we need to ensure that two different screenshot nodes do not bear the same file name or that each sequence starts with the appropriate start node and ends with the end node. We also have to ensure that by integrating graph in another one we do not create cycle within the execution path. 
+This means that we have to ensure that there is a distinct path for every single using action and that there is no cycle within such path. This strongly reminds of some graph theory problems: checking is a path from start to end node exists and whether or not a given graph is cycle free. The \textsc{Cinco} framework offers a meta plugin ready-to-go for this task, the MCaM Meta Plugin~\cite{gitlabcinco}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics{WebDoc-graphModel.png}
+    \includegraphics{ProjectValidationView.png}
     \caption{Project Validation view showing passed and failed checks}
     \label{fig:modelChecks}
 \end{figure}
 
-The \textit{Project Validation} view shows all the checks done on the entire project and marks those that failed or passed the checks accordingly. Figure~\ref{fig:modelChecks} shows for example the checks done on our example project.
+The plugin has to be activated by specifying the \lstinline{@mcam("...")} or the \lstinline{@mcam_checkmodule("...")} annotation with the corresponding parameter in parentheses. The first one has to be declared right above the \lstinline[language=MGL]{graphModel} declaration with the parameter ''check''; this activates the check on the constraints on the graph nodes, for example the multiplicity of the incoming and outgoing edges between them or containment constraints on container nodes, meaning that they can only contain those node elements explicitly specified with the \lstinline[language=MGL]{containableElements} attribute. The second annotation allows us to specify our own module checks. For instance, we need to ensure that two different screenshot nodes do not bear the same file name or that each sequence starts with the appropriate start node and ends with the end node. We also have to ensure that by integrating graph in another one we do not create cycle within the execution path. The \textit{Project Validation} view shows all the checks done on the entire project and marks those that failed or passed the checks accordingly. Figure~\ref{fig:modelChecks} shows for example the checks done on our example project.
 
 \section{Generation Process}\label{sec:GenProcess}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{WebDoc-workflow.pdf}
-    \caption{End user Documentation generation process}
-    \label{fig:WebDocWorkflow}
-\end{figure}
-
-As mentioned before, the prominent feature of \textsc{Cinco} is the generate button. This allows the developer, after the modeled has been laid out without errors, to generate the a fully realized Selenium-Java application, which is going to execute the user sequence model just created. Figure~\ref{fig:genButton} shows where the generate button is located.
+As mentioned before, one of the most impressive features of \textsc{Cinco} is the generate button. Clicking on this button generates a executable Selenium-Java application, which, once started, runs the user sequence model  as a Selenium script in the Web browser. Figure~\ref{fig:genButton} shows where the generate button is located. As mentioned in the preliminary chapter, the generator classes behind this process are written in Xtend, as statically-typed programming language based on Java and actually translates to Java source code~\cite{Xtend}. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{GenerateButtonHighlighted.png}
+    \includegraphics{GenerateButtonPointed.png}
     \caption{\textsc{Cinco} product - generator button}
     \label{fig:genButton}
+\end{figure}
+
+To be able to start a generation process from a graph model we have to declare it ''generatable''. We do so bei adding the \lstinline[language=MGL]{@generatable("path.to.generator.Class")} annotation in the graph model meta-specification. This annotation accept as parameter a Xtend or Java class that implements the IGenerator, whose \lstinline{generate} method starts the whole process and the path to a location where the generation end product will be saved (in our case it is in the \lstinline{src-gen} folder). Recalling the goal we set for application code, we create two folder structures inside the src-gen folder: the first one is the Java project structure with the Selenium script and the second one is the VuePress project holding all the Markdown files with the documentation text. Going deeper into technical details is beyond the scope of this paper, hence we provide an illustration of the whole generation process in figure~\ref{fig:WebDocWorkflow}. As you can see, we begin by designing a graph model in the \textsc{Cinco} product application, the WebDoc editor; clicking on the generate button starts a simultaneous creating of both the aforementioned project files. At this point, a fully functional documentation has already been created. We have chosen to generate the documentation file with references to placeholder pictures, that will be overridden once the Selenium script has been executed. To launch the documentation website two simple commands are needed. Then again, we will not go deeper in details to stay in the scope of our thesis, but there is a great online guide on how to get started with VuePress~\cite{vuepress}. As for the Selenium-Java project, it can be imported in an \glsentryfull{ide} such as Eclipse and launch there. After successful execution, all the placeholder picture will have been overridden and we have a complete documentation.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{WebDoc-workflow.pdf}
+    \caption{Generation process of End user Documentation}
+    \label{fig:WebDocWorkflow}
 \end{figure}

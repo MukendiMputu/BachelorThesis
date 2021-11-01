@@ -114,7 +114,7 @@
 
 @misc{Xtend,
 	author = {Eclipse.org},
-	howpublished = {\url{https://www.eclipse.org/xtend/}},
+	howpublished = {https://www.eclipse.org/xtend/documentation/},
 	note = {Accessed: September 24, 2021},
 	title = {Java with Spice}
 }
@@ -297,5 +297,11 @@
 	month = oct,
 	title = {VuePress | Vue-powered Static Site Generator},
 	year = {2021}
+}
+
+@misc{mozillaMDN,
+	author = {contributors, MDN},
+	howpublished = {https://developer.mozilla.org/en-US/docs/Web/HTML},
+	title = {HTML: HyperText Markup Language}
 }
 
