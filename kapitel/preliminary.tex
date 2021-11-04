@@ -1,14 +1,15 @@
 % Chapter 1
 
-\chapter{Preliminary}\label{ch:Basis}
+\chapter{Preliminaries}\label{ch:Basis}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{WebDocDevelopment-all.pdf}
+    \caption{Development path of the end user documentation}
     \label{fig:procWorkflow}
 \end{figure}
 
-This chapter introduces the various notions necessary for achieving our goal. We first look at the structure of our end user documentation as recommended by known standards and what technologies are available to help us complete this task. Then we will allude the fundamentals of model-driven development with the \textsc{Cinco} Meta Tooling Suite, while introducing the meta languages we based our graphical models on and explain briefly what need to be generated from those models.
+This chapter introduces the various notions necessary for achieving our goal. We first look at the structure of our end user documentation as recommended by known standards and what technologies are available to help us complete this task. Then we will allude the fundamentals of model-driven development with the \textsc{Cinco} Meta Tooling Suite, while introducing the meta languages we based our graphical models on and explain briefly what need to be generated from those models. Figure \ref{fig:procWorkflow} depicts the steps take to achieve our goal.
 
 \pagebreak
 
@@ -18,18 +19,12 @@ The value of a good software product, in fact, of any product destined to be bro
 
 End user documentation aim to provide the application end users with the information necessary to properly interact with the software. It is part of the development life cycle and the bridge between the product developer and the user~\cite{9238529}. By improving the structure and usefulness of the information delivered to end user, the developer not only significantly reduces the return of calls for support, but also enhances reputation of the product as well as of the producing company~\cite{ieee5712775}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{WebDocDevelopment-userDoc.pdf}
-    \label{fig:userDoc}
-\end{figure}    
-
 In this section we will go through the main characteristics of end user documentation, focusing on the standards establish by the ISO/IEC and the IEEE~\cite{ieee5712775, ISO-IEC-IEEE}. Next, we will talk about the specifics of documenting Web application by giving an example of a documented Web application. We will also present the currently used technologies for creating and managing such documentation. Our main goal is to produce an entire end user documentation page from a graphical model. Before going further, we ought to precise that the type of documentation to be created will depend on how the documentation designer lays out the model, that means the model could be designed to represent a technical documentation -- requiring deep knowledge of the application documented -- or it could also be structured to produce a documentation for simple end users with no technical knowledge at all of the underlying Web application~\cite{ieee6081814}.
 
 
 \subsection{Documentation Characteristics}\label{sec:char}
 
-Since our focus is primarily on Web applications, we will be documenting the \glsentryfull{ui}, which is composed of Web elements (like buttons, navigation links, checkboxes, etc.) the user can interact with. This settles implicitly the type of documentation we aim to create: a step-by-step guide for navigating UI to reach the expected result. Nonetheless, the ISO/IEC/IEEE Standard 26511:2012 mandates i.e.,~that completeness and accuracy should be of the utmost importance when designing the end user documentation.
+Since our focus is primarily on Web applications, we will be documenting the \glsentryfull{ui}, which is composed of Web elements (like buttons, navigation links, checkboxes, etc.) the user can interact with. This settles implicitly the type of documentation we aim to create: a step-by-step guide for navigating UI to reach the expected result. Nonetheless, the ISO/IEC/IEEE Standard 26511:2012~\cite{ieee6170926} mandates i.e.,~that completeness and accuracy should be of the utmost importance when designing the end user documentation.
 
 Bearing that in mind, a good documentation should respond to three important questions: \textit{why} the application has been programmed, meaning the problem the application intends to solve, \textit{what} is the end user supposed to do to get to the solution quickly and efficiently and \textit{how} it is achieved~\cite{ISO-IEC-IEEE}. This is a task we leave to the information manager. The last question, however, is better answered by providing visual help in form of screen captures or any illustration that fastens the understanding of the documentation. 
 
@@ -52,7 +47,7 @@ For its popularity, it is a great choice for our project, since description of t
     \label{fig:Markdown}
 \end{figure}
 
-Although there exists a plethora of applications that transform Markdown files into HTML files to be rendered in a Web browser application, we choose to work with one framework that also established itself throughout the developer community and that especially works very well with Markdown files: VuePress.
+Although there exists a plethora of applications that transform Markdown files into HTML files to be rendered in a Web browser application (like i.e. MacDown~\cite{} for Mac users, ghostwriter~\cite{} for Windows and ReText~\cite{} for Linux), we choose to work with one framework that also established itself throughout the developer community and that especially works very well with Markdown files: VuePress.
 
 \subsubsection{VuePress}\label{sec:VP}
 
@@ -62,11 +57,6 @@ We will use VuePress to statically launch the end user documentation as a websit
 
 \section{Core Principles of Model-Driven Development}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{WebDocDevelopment-cinco.pdf}
-    \label{fig:corePrincMDD}
-\end{figure}
 
 This section lays down the fundamentals of the \gls{mdd} -- also referred to as \gls{mdsd}~\cite{fowler} --  using the \textsc{Cinco} SCCE Meta Tooling Framework, as well as the steps necessary to get up and running with the framework. The term MDD refers to a development paradigm where the functionalities of the software are first specified as models, from which then executable code can be automatically generated. To create and use models to represent the software system, a DSL that is close to the problem domain, is needed. Application domain experts possess the knowledge of the application structure, which they represent in form of models. Domain experts and application programmers must agree on how the specification language determines syntax and semantic of the model elements.
 
