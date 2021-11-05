@@ -2,14 +2,14 @@
 
 \chapter{Preliminaries}\label{ch:Basis}
 
-\begin{figure}[h]
+\begin{figure}[t]
     \centering
     \includegraphics[width=\textwidth]{WebDocDevelopment-all.pdf}
     \caption{Development path of the end user documentation}
     \label{fig:procWorkflow}
 \end{figure}
 
-This chapter introduces the various notions necessary for achieving our goal. We first look at the structure of our end user documentation as recommended by known standards and what technologies are available to help us complete this task. Then we will allude the fundamentals of model-driven development with the \textsc{Cinco} Meta Tooling Suite, while introducing the meta languages we based our graphical models on and explain briefly what need to be generated from those models. Figure \ref{fig:procWorkflow} depicts the steps take to achieve our goal.
+This chapter introduces the key concepts that are required to achieve our goal. We begin by considering the format of our end-user documentation as required by known standards, as well as the technologies available to assist us in completing this task. The \textsc{Cinco} Meta Tooling Suite will next be used to introduce the principles of model-driven programming, as well as introduce the meta languages on which our graphical models are based and quickly describe what needs to be generated from those models. The steps to achieving our aim are depicted in Figure \ref{fig:procWorkflow}.
 
 \pagebreak
 
@@ -17,7 +17,7 @@ This chapter introduces the various notions necessary for achieving our goal. We
 
 The value of a good software product, in fact, of any product destined to be brought to the consumer is determined on how effective the end user can learn to use the product. Hence, putting a great effort to generate and manage a useful, well-structured documentation is as much important as the development of the product itself~\cite{ISO-IEC-IEEE}. 
 
-End user documentation aim to provide the application end users with the information necessary to properly interact with the software. It is part of the development life cycle and the bridge between the product developer and the user~\cite{9238529}. By improving the structure and usefulness of the information delivered to end user, the developer not only significantly reduces the return of calls for support, but also enhances reputation of the product as well as of the producing company~\cite{ieee5712775}.
+The goal of end user documentation is to provide application end users with the knowledge they need to interact with the software properly. It is an integral aspect of the development process and serves as a link between the product creator and the end user~\cite{9238529}. By increasing the structure and usability of the information supplied to end users, the developer not only reduces the number of support calls, but also improves the product's and the company's reputation~\cite{ieee5712775}.
 
 In this section we will go through the main characteristics of end user documentation, focusing on the standards establish by the ISO/IEC and the IEEE~\cite{ieee5712775, ISO-IEC-IEEE}. Next, we will talk about the specifics of documenting Web application by giving an example of a documented Web application. We will also present the currently used technologies for creating and managing such documentation. Our main goal is to produce an entire end user documentation page from a graphical model. Before going further, we ought to precise that the type of documentation to be created will depend on how the documentation designer lays out the model, that means the model could be designed to represent a technical documentation -- requiring deep knowledge of the application documented -- or it could also be structured to produce a documentation for simple end users with no technical knowledge at all of the underlying Web application~\cite{ieee6081814}.
 
@@ -28,11 +28,11 @@ Since our focus is primarily on Web applications, we will be documenting the \gl
 
 Bearing that in mind, a good documentation should respond to three important questions: \textit{why} the application has been programmed, meaning the problem the application intends to solve, \textit{what} is the end user supposed to do to get to the solution quickly and efficiently and \textit{how} it is achieved~\cite{ISO-IEC-IEEE}. This is a task we leave to the information manager. The last question, however, is better answered by providing visual help in form of screen captures or any illustration that fastens the understanding of the documentation. 
 
-As we mentioned before, we intend to document Web applications from the viewpoint of the application end user. This means that documentation developer should keep in mind the readership of product~\cite{ISO-IEC-IEEE}, so identifying the key tasks and activities of the common users should be integral part of the planning process. Our solution puts the developer at charge for how detailed the documentation becomes.
+We plan to document Web applications from the perspective of the application's end user, as previously stated. This means that the documentation developer must consider the product's audience, and identifying the core jobs and activities of common users should be an important element of the design process~\cite{ISO-IEC-IEEE}. The developer is in command of how extensive the documentation becomes using our solution.
 
 \subsection{Documentation Software Tools}
 
-Choosing the format in which the documentation is brought to the end user is as much important as the rest of the milestones of the planning process. An inadequate choice in this matter can reduce the potential of the documentation to reach a maximum number of users, rendering it ineffective. A good decision is to opt for technologies that have already gained acceptance among most users. This ensures greater reach and preexisting knowledge amongst that same audience:
+Choosing the format in which the documentation is brought to the end user is as much important as the rest of the milestones of the planning process. A poor decision in this area might limit the documentation's ability to reach a large number of consumers, rendering it useless. Choosing technologies that have already received widespread adoption is a wise move. This ensures a wider reach and prior knowledge within the same audience:
 
 \subsubsection{Markdown}\label{sec:MD}
 
@@ -47,11 +47,13 @@ For its popularity, it is a great choice for our project, since description of t
     \label{fig:Markdown}
 \end{figure}
 
-Although there exists a plethora of applications that transform Markdown files into HTML files to be rendered in a Web browser application (like i.e. MacDown~\cite{} for Mac users, ghostwriter~\cite{} for Windows and ReText~\cite{} for Linux), we choose to work with one framework that also established itself throughout the developer community and that especially works very well with Markdown files: VuePress.
+Although there exists a plethora of applications that transform Markdown files into HTML files to be rendered in a Web browser application (i.e. MacDown~\footnote[1]{MacDowns: \url{https://macdown.uranusjr.com/}} for Mac users, ghostwriter~\footnote[2]{Ghostwriters: \url{https://wereturtle.github.io/ghostwriter/}} for Windows and Linux or online tool like Dillinger~\footnote[3]{Dillinger : \url{https://dillinger.io/}}), we choose to work with one framework that also established itself throughout the developer community and that especially works very well with Markdown files: VuePress.
 
 \subsubsection{VuePress}\label{sec:VP}
 
-VuePress is a minimalistic static website generator powered by VueJS~\cite{vuepress}, which is an open source JavaScript framework created by Evan You\footnote{Eva You's website \url{https://evanyou.me/}}. As an open source software, it is maintained by a huge community of contributors, what makes it robust and up-to-date.
+VuePress is a minimalistic VueJS-powered static website generator. VueJS~\cite{vuepress} is an open source JavaScript framework designed by Evan You\footnote[4]{Eva You's website \url{https://evanyou.me/}}. It is called minimalistic because it only takes a few lines of configuration and two commands to create and launch a static website. It is resilient and up-to-date since it is open source software and is maintained by a large community of contributors.
+
+By respecting the VuePress conventional folder structure, it can explore folders, get Markdown files, and convert them to HTML files. The default appearance of the generated website is defined by a customizable configuration file included in the project folders. By simply adding certain configuration elements, you may create i.e.~a sidebar menu and a navigation bar. VuePress produces a static website by building hyperlinks between HTML files in the project folder hierarchy in the order in which they appear. This means that subfolder Markdown (or HTML) files are rendered as menu items on the folder's HTML page. A server-rendered website with a live reload mechanism is constructed and launched after inputting the correct command. Every modification to the Markdown files is immediately visible on the website. The final step is to create the website, which will be saved in a special folder and can subsequently be exported to any other website.
 
 We will use VuePress to statically launch the end user documentation as a website, relieving the developer of the task of configuring the server. The principal task remaining is therefore to create a solid documentation model.
 
@@ -70,7 +72,7 @@ When applied correctly, the result of the model-driven development process is a 
 
 A \glsentryfull{dsl}, as mentioned before, is a language adapted to specific development domain. In~\cite{Naujokat2018} a succinct analogy to \glsplural*{dsl} is given by saying that it is comparable to a tool specially crafted only for one specific task as opposed to general programming languages, which can be seen as tools for multiple different tasks. If we stick to this analogy, just as one would start with a blueprint to construction a mechanical tool, designing as DSL required similar steps. One must conceptually lay out the behavior and eventually -- in case it is a graphical language we seek to design -- the look of each element that can be used in our DSL.
 
-Blueprinting our DSL is equivalent to defining a metalanguage or meta-DSL to our language. \textit{Meta} literally means \textit{situated behind or beyond}\footnote{According to the definition given at \url{https://www.merriam-webster.com/}}. So, the metalanguage is the descriptive language coming before our language, describing the meaning (semantic) and the relationship between the objects of our target language. In other words, the meta-DSL is the abstract syntax and the resulting DSL concrete syntax. It is possible to ascend the modeling hierarchy of meta-definition until we reach a self-referencing language, like it is the case \gls{uml}.
+Blueprinting our DSL is equivalent to defining a metalanguage or meta-DSL to our language. \textit{Meta} literally means \textit{situated behind or beyond}\cite{merriam}. So, metalanguage is a descriptive language that comes before our language and describes the meaning (semantic) and relationship between the objects of our target language. To put it another way, the meta-DSL is the abstract syntax, and the DSL concrete syntax is the result. It is feasible to work our way up the meta-definition modeling hierarchy until we reach a self-referencing language, like it is the case \gls{uml}.
 
 In our case, we want a graphical language for creating models that represent the different parts of a Web application and how the end user can possibly interact with them. The metalanguage to our graphical DSL is provided by the \textsc{Cinco} SCCE Meta Tooling Suite. It comprises the \gls{mgl}, the \gls{msl} and the \gls{cpd}. All have been constructed using Xtext~\cite{bettini2016implementing}, a language Workbench for writing textual \glspl*{dsl}~\cite{naujokat-diss}. The next section explains those concepts in detail.
 
@@ -220,3 +222,18 @@ For our documentation application we need to create two different application fo
 This generation approach utilizes Java's and Xtend's text templating feature which is based on the generation pattern used in the \glsentryfull{jabc}~\cite{model-driver-dev_jABC,jabc-home}. In fact, many generator classes in our example project implement and extends interfaces from the generator runtime and template package of the jABC \textsc{Cinco} meta plugin.
 
 Additionally, other template classes are implemented to create configuration files, application class and project files. In chapter~\ref{ch:intro} section~\ref{sec:objectives} we provided a link to the GitHub repository, where the complete application code can be found. In the next chapters, we show the output of the generator and feature classes, while introducing our application as an ongoing example.
+
+\section{Tasks management Web application -- TODO-App}\label{sec:todoApp}
+
+The TODO-App is a Web application fully generated with the \gls{dime}~\cite{bosselmann-et_al}, a development environment for creating Web applications. DyWA stands for dynamic Web applications, it is the container which is used to host the generated application. While modeling and code generation happens in DIME, DyWA provides support for the product deployment phase, constitutes the runtime environment, and manages the data persistence~\cite{bosselmann-et_al}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{todoApp.png}
+    \caption{Impression of the TODO-App Web interface}
+    \label{fig:todoApp}
+\end{figure}
+
+The TODO-App is an application that helps management lists of tasks that need to be done. It provides to a logged-in user with the possibility to create such lists, add various tasks to them, and after their completion, remove them~\cite{bosselmann-et_al}. Users also can add co-owners, which are other existing users, that can manage that respective list with them. The application is launched in development mode, meaning that it is accessible via a local Web address (\lstinline{http://localhost:8080}) from the host it has been started in. The TODO-App is ideal for demonstration purposes, since it presents all the Web elements necessary to a Web application interface. Figure \ref{fig:todoApp} shows said interface with all the elements the user can interact with, i.e.~buttons, input fields, dropdown selectboxes, etc.
+
+DIME's model-driven development concept was our starting point. That is, the graphical elements meta specification is focused on specifying elements that represent the graphical user interface (GUI) and those that implement processes. The latter are elements whose semantic implementation will direct the Web browser to recreate the procedures necessary to construct the intended documentation. However, we should point out that in our scenario, the concept of data permanence is not required. Furthermore, even though our concept is based on DIME, it does not mean that our application is only for DIME-generated Web apps. In this respect, any navigable Web application can be modeled with our editor and thus documented.

@@ -1,7 +1,25 @@
-\chapter{Conclusion}\label{ch:concl}
+\chapter{Afterword}\label{ch:epilogue}
 
-We have proposed a solution for a DSL-driven generation of end user documentation for Web applications. We presented our tasks management Web application as ongoing example of  using the \textsc{Cinco} Meta Tooling Suite, which has provided us with the possibility to implement a specification for our own graphical DSL.
+\section{Conclusion}\label{sec:concl}
+
+We've presented a method for creating end-user documentation for Web applications that is driven by a DSL. We demonstrated how we used the \textsc{Cinco} Meta Tooling Suite to create a specification for our own graphical DSL while presenting our task management Web application as an ongoing example.
 
 Making use of the \textsc{Cinco} \glsentryfull{mgl} and \glsentryfull{msl}, we determined the look of each model element of our graphical DSL by keeping a close fidelity to the actual HTML elements they represent. This allowed us to create an editor application, that enables the documentation designer to use those model elements to create graph diagram illustrating the needed user workflow. By applying model checking methods to validate resulting diagrams, we ensure that executable application code be generated within corresponding folder structure following established conventions.
 
 We have been able to identify the characteristics of an end user documentation by following known standards and wisely apply the appropriate format, namely Markdown, to structure our documentation and choose VuePress as the right framework technology to transform it to a static website rendered in the Web browser.
+
+\section{Future Work}\label{sec:futwork}
+
+We have identified a couple of development opportunities for future improvements:
+\begin{itemize}
+    \item \textbf{Cross-referencing model graphs}\\
+        Reusability dictates that we be able to integrate complete model graphs in others to avoid modeling sequences multiple times. In this thesis, we achieved it by using the PrimeReference feature offered by the \textsc{Cinco} framework. Cross-referencing DocGraphModels inside other could be subject to improvements in the future, enabling us for example to list all available graph models in a separate view, where they would be visible to the WebDoc user and more intuitive to integrate to the currently edited model.
+    \item \textbf{Implement more checks}\\
+        We have implemented so far module checks that help build syntactically correct model graphs, by enforcing the constraints defined on the meta-specification level of our graphical DSL. In the future, we could implement more checks to assist the developer in validation some other aspects of the model. For example, we could validate that the string values for the Web element selectors have the correct syntax of CSS selectors or XPath selectors by validating them against a well-constructed regular expression.
+    \item \textbf{Language extension}\\
+        The example mentioned in the previous point raises the concern of allowing the developer to address Web elements by XPath and/or CSS. So far, we have implemented only the use of CSS selectors to address them. Many development frameworks for Web applications use dynamic CSS id attributes, which makes it challenging to use as selector for the WebDriver to find. This issue could as well be addressed in future version of our application.
+
+        One last point that requires our attention is the list of available Web elements to use while modeling. For those who are experienced in Web development, it is not surprising that new HTML elements be implement in the future. We fast-developing technologies and the growing number of devices that can launch browser application, we might have to adapt and offer more model elements to reflect new ones.
+
+
+\end{itemize}
