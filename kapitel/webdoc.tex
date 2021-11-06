@@ -1,13 +1,14 @@
 % Chapter3.tex
 \chapter{WebDoc - Web Application Documentor}\label{ch:CP}
 
+Having described the \textsc{Cinco} DSL specification of the graphical modeling tool, we come now to the description of the model editor instantiated from it. First, we give a succinct explanation of our graphical DSL, then illustrate the fundamental building blocks of our documentation model and by presenting at the same time our \textsc{Cinco} product: WebDoc\footnote{GitHub repository: \url{https://github.com/MukendiMputu/UserDoc}}. Later, we demonstrate the use of these graphical elements to model a specific user workflow on the website we want to document. At the end, we show how using the editor built-in generator, we generate the target application that generate the Markdown files to be shown in the Web browser.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{WebDocDevelopment-gDSL.pdf}
-    \label{fig:webDoc}
+    \includegraphics[width=\textwidth]{WebDoc-workflow.pdf}
+    \caption{Generation process of End user Documentation}
+    \label{fig:WebDocWorkflow}
 \end{figure}
-
-Having described the \textsc{Cinco} DSL specification of the graphical modeling tool, we come now to the description of the model editor instantiated from it. First, we give a succinct explanation of our graphical DSL, then illustrate the fundamental building blocks of our documentation model and by presenting at the same time our \textsc{Cinco} product: WebDoc\footnote{GitHub repository: \url{https://github.com/MukendiMputu/UserDoc}}. Later, we demonstrate the use of these graphical elements to model a specific user workflow on the website we want to document. At the end, we show how using the editor built-in generator, we generate the target application that generate the Markdown files to be shown in the Web browser.
 
 \section{Graphical DSL}\label{sec:gDSL}
 
@@ -113,13 +114,17 @@ The second annotation allows us to specify our own module checks. For instance, 
 
 \section{Generation Process}\label{sec:GenProcess}
 
+On the design process of all required models is complete, the executable code is now to be generated. Recall that we want to generate two different projects: the Selenium-Java project to capture the screenshots and the VuePress project containing all the documentation Markdown files. We thought of two ways to reach the intended result.
+
+The first one consist of generating the Selenium-Java application from our models and subsequently, when executing generated application, create the VuePress project with all the documentation files. This approach would imply letting Java take care of the generation process of the Markdown files as well as the creation of the needed screenshot.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{firstGenProcess.png}
+    \caption{Sequential generation of the documentation}
+    \label{fig:firstGenProcess}
+\end{figure}
+
 Clicking on this button generates a executable Selenium-Java application, which, once started, runs the user sequence model  as a Selenium script in the Web browser. As mentioned in the preliminary chapter, the generator classes behind this process are written in Xtend, as statically-typed programming language based on Java and translates to Java source code~\cite{Xtend}. 
 
 To be able to start a generation process from a graph model we must declare it ''generatable''. We do so bei adding the \lstinline[language=MGL]{@generatable("path.to.generator.Class")} annotation in the graph model meta-specification. This annotation accepts as parameter a Xtend or Java class that implements the IGenerator, whose \lstinline{generate} method starts the whole process and the path to a location where the generation product will be saved (in our case it is in the \lstinline{src-gen} folder). Recalling the goal we set for application code, we create two folder structures inside the src-gen folder: the first one is the Java project structure with the Selenium script and the second one is the VuePress project holding all the Markdown files with the documentation text. Going deeper into technical details is beyond the scope of this paper, hence we provide an illustration of the whole generation process in figure~\ref{fig:WebDocWorkflow}. As you can see, we begin by designing a graph model in the \textsc{Cinco} product application, the WebDoc editor; clicking on the generate button starts a simultaneous creating of both the aforementioned project files. At this point, a fully functional documentation has already been created. We have chosen to generate the documentation file with references to placeholder pictures, that will be overridden once the Selenium script has been executed. To launch the documentation website two simple commands are needed. Then again, we will not go deeper in details to stay in the scope of our thesis, but there is a great online guide on how to get started with VuePress~\cite{vuepress}. As for the Selenium-Java project, it can be imported in an \glsentryfull{ide} such as Eclipse and launch there. After successful execution, all the placeholder pictures will have been overridden and we have a complete documentation.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\textwidth]{WebDoc-workflow.pdf}
-    \caption{Generation process of End user Documentation}
-    \label{fig:WebDocWorkflow}
-\end{figure}

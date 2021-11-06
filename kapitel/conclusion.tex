@@ -1,16 +1,20 @@
-\chapter{Afterword}\label{ch:epilogue}
+\chapter{Final Remarks}\label{ch:epilogue}
 
 \section{Conclusion}\label{sec:concl}
 
-We've presented a method for creating end-user documentation for Web applications that is driven by a DSL. We demonstrated how we used the \textsc{Cinco} Meta Tooling Suite to create a specification for our own graphical DSL while presenting our task management Web application as an ongoing example.
+We implemented a \glsentryfull{webdoc} that creates an end user documentation based on graph models using a graphical DSL. The use of graphical elements that resemble the actual HTML elements brings the advantages that the application is easy to use and building model graphs occurs almost intuitively. Also, we have added the implementation of module checks to assist the designer in the process of constructing valid model graph that will generate correct, executable application code.
 
 Making use of the \textsc{Cinco} \glsentryfull{mgl} and \glsentryfull{msl}, we determined the look of each model element of our graphical DSL by keeping a close fidelity to the actual HTML elements they represent. This allowed us to create an editor application, that enables the documentation designer to use those model elements to create graph diagram illustrating the needed user workflow. By applying model checking methods to validate resulting diagrams, we ensure that executable application code be generated within corresponding folder structure following established conventions.
 
 We have been able to identify the characteristics of an end user documentation by following known standards and wisely apply the appropriate format, namely Markdown, to structure our documentation and choose VuePress as the right framework technology to transform it to a static website rendered in the Web browser.
 
+The solution proposed in this thesis yields a well-structured and fully function documentation website. Our approach uses the Selenium WebDriver, which navigates the Web application in a short amount of time while taking screen captures at the indicated places. Writing such a Selenium script would not only require deep knowledge of the Web automation framework but also good programming skills in Java. In our solution the WebDoc takes care of it for the developer.
+
+The documentation developer would also benefit of the fact that the WebDoc conveniently creates the VuePress project with all the configuration files ready-to-go. This helps save a great amount of time, since a tutorial on how to create such a project is not necessarily needed.
+
 \section{Future Work}\label{sec:futwork}
 
-We have identified a couple of development opportunities for future improvements:
+ In the evaluation of the thesis, we have identified a couple of development opportunities for future improvements:
 \begin{itemize}
     \item \textbf{Cross-referencing model graphs}\\
         Reusability dictates that we be able to integrate complete model graphs in others to avoid modeling sequences multiple times. In this thesis, we achieved it by using the PrimeReference feature offered by the \textsc{Cinco} framework. Cross-referencing DocGraphModels inside other could be subject to improvements in the future, enabling us for example to list all available graph models in a separate view, where they would be visible to the WebDoc user and more intuitive to integrate to the currently edited model.
