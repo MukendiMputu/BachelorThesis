@@ -1,7 +1,7 @@
 % Chapter3.tex
 \chapter{WebDoc - Web Application Documentor}\label{ch:CP}
 
-Having described the \textsc{Cinco} DSL specification of the graphical modeling tool, we come now to the description of the model editor instantiated from it. First, we give a succinct explanation of our graphical DSL, then illustrate the fundamental building blocks of our documentation model and by presenting at the same time our \textsc{Cinco} product: WebDoc\footnote{GitHub repository: \url{https://github.com/MukendiMputu/UserDoc}}. Later, we demonstrate the use of these graphical elements to model a specific user workflow on the website we want to document. At the end, we show how using the editor built-in generator, we generate the target application that generate the Markdown files to be shown in the Web browser.
+We've gone through the \textsc{Cinco} DSL specification for the graphical modeling tool, and now we'll go over the model editor that was created from it. We begin with a brief description of our graphical DSL, then demonstrate the key building elements of our documentation architecture while simultaneously demonstrating our \textsc{Cinco} product: WebDoc\footnote{GitHub repository: \url{https://github.com/MukendiMputu/UserDoc}}. We'll show how to use these graphical elements to simulate a specific user work-flow on the website we're documenting later. Finally, we demonstrate how to construct the target application that generates the Markdown files that will be shown in the Web browser using the editor's built-in generator.
 
 \begin{figure}[h]
     \centering
@@ -96,7 +96,7 @@ In addition, each node element includes a description attribute, which, as discu
 
 Modeling valid graph diagrams is crucial for the correctness of the generated application code. Especially the Selenium-Java application code must correctly replicate the user sequence in order capture the correct application state as the user would do. This is particularly daunting if the navigation graph of the underlying Web application is huge.
 
-This means that for each user activity, we must ensure that there is a distinct path and that there is no cycle inside that path. This is reminiscent of various graph theory problems, such as determining whether a path from the start to the end node exists and whether a graph is cycle free. The MCaM plugin, which is incorporated into the \textsc{Cinco} framework, can be used to do this operation~\cite{gitlabcinco}. The plugin must be activated by specifying the \lstinline{@mcam("...")} or the \lstinline{@mcam_checkmodule("...")} annotation with the corresponding parameter in parentheses. 
+This means that we need to check that two graph model do not have the same name or that for each user activity, there is a distinct path and that there is no cycle inside that path.  This is reminiscent of various graph theory problems, such as determining whether a path from the start to the end node exists and whether a graph is cycle free. The MCaM plugin, which is incorporated into the \textsc{Cinco} framework, can be used to do this operation~\cite{gitlabcinco}. The plugin must be activated by specifying the \lstinline{@mcam("...")} or the \lstinline{@mcam_checkmodule("...")} annotation with the corresponding parameter in parentheses. Also, nodes and model graph attributes can be specified with the \lstinline[language=MGL]{unique} qualifier to enforce the uniqueness of the model name at design time.
 
 \begin{figure}[h]
     \centering
@@ -107,24 +107,40 @@ This means that for each user activity, we must ensure that there is a distinct 
 
 \subsection{MCaM Check}\label{sec:mcamCheck}
 
-The first one must be declared right above the \lstinline[language=MGL]{graphModel} declaration with the parameter ''check''; this activates the check on the constraints on the graph nodes, for example the multiplicity of the incoming and outgoing edges between them or containment constraints on container nodes, meaning that they can only contain those node elements explicitly specified with the \lstinline[language=MGL]{containableElements} attribute. 
+The first one must be declared right above the \lstinline[language=MGL]{graphModel} declaration with the parameter ''check''. It activates the check of the constraints on the graph nodes in the graph model scope. At design time the model creator receives feedback in form of errors, because those mistakes either cause the generator to throw an runtime exception or the resulting application code will be error-prone, hence, not executable. 
+
+For this check to show a successful Incoming- or OutgoingCheck, the multiplicity of the relationship between node elements must respect the specified value. For example, a node element specified with an incoming Edge in this fashion \lstinline[language=MGL]{incomingEdges (Edge[1,*])}, must have at least one incoming connection of the \lstinline[language=MGL]{Edge} type. Any other kind of multiplicity can be defined; even not specifying any implies one. For instance, writing \lstinline[language=MGL]{incomingEdges (Edge)} is equivalent to \lstinline[language=MGL]{incomingEdges (Edge[*,*])}, which means at least and at most any number of \lstinline[language=MGL]{Edge} transition.
+
+When specifying the containable elements of a container node (see i.e.~line~\ref{line:multiplicity} in listing~\ref{docMGL}), with the \lstinline[language=MGL]{containableElements} property, each elements listed in that property has a one type of multiplicity explained above. If not respected, the validation view will show a ContainmentCheck error until it is resolved.
 
 \subsection{MCaM Module Check}\label{sec:mcamModCheck}
-The second annotation allows us to specify our own module checks. For instance, we need to ensure that two different screenshot nodes do not bear the same file name or that each sequence starts with the appropriate start node and ends with the end node. We also must ensure that by integrating graph in another one we do not create cycle within the execution path. The \textit{Project Validation} view shows all the checks done on the entire project and marks those that failed or passed the checks accordingly. Figure~\ref{fig:modelChecks} shows for example the checks done on our example project.
+
+The second annotation allows us to specify our own module checks. For instance, we need to ensure that two different screenshot nodes do not bear the same file name or that each sequence starts with the appropriate StartNode and ends with the EndNode. The former check makes sure that no previous screenshot be overwritten by another one with the same name and latter ensures that the resulting code reflects the model sequence from start to the end. We also need to ensure that by integrating a DocGraphModel into another one we do not create cycles within the execution path, otherwise this would result into a never-ending execution loop once the generation process has been triggered.
+
+This module check allows us also i.e.~to check for unique feature in the FeatureGraphModel scope. Although the independency of each feature is ensure by the featureContainers, two featureContainers bearing the same name would result in two documentation pages having the same title. The \textit{Project Validation} view shows all the checks done on the entire project and marks those that failed or passed the checks accordingly. Figure~\ref{fig:modelChecks} shows for example the checks done on our example project, where the Login.doc DocGraphModel passed the cycle check, but fails the one checking for interruption and unique picture names.
 
 \section{Generation Process}\label{sec:GenProcess}
 
 On the design process of all required models is complete, the executable code is now to be generated. Recall that we want to generate two different projects: the Selenium-Java project to capture the screenshots and the VuePress project containing all the documentation Markdown files. We thought of two ways to reach the intended result.
 
-The first one consist of generating the Selenium-Java application from our models and subsequently, when executing generated application, create the VuePress project with all the documentation files. This approach would imply letting Java take care of the generation process of the Markdown files as well as the creation of the needed screenshot.
+The first one consist of generating the Selenium-Java application from our model graphs and subsequently, when executing generated application, create the VuePress project with all the documentation files as shown in fig.~\ref{fig:firstGenProcess}. This approach would imply letting Java take care of the generation process of the Markdown files as well as the creation of the needed screenshot. Erroneous generation of the Selenium-Java application will leave the designer with no palpable result at all. In this approach generated application becomes a single point of failure.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{firstGenProcess.png}
-    \caption{Sequential generation of the documentation}
+    \includegraphics[width=\textwidth]{firstGenProcess.pdf}
+    \caption{First approach: Sequential generation of the documentation}
     \label{fig:firstGenProcess}
 \end{figure}
 
-Clicking on this button generates a executable Selenium-Java application, which, once started, runs the user sequence model  as a Selenium script in the Web browser. As mentioned in the preliminary chapter, the generator classes behind this process are written in Xtend, as statically-typed programming language based on Java and translates to Java source code~\cite{Xtend}. 
+The second approach applies the concept of separation of concerns (see fig.~\ref{fig:secondGenProcess}). That means that we separate the task of taking screen captures with Selenium-Java from the one of generating the documentation files that will contain those screen captures. This way, if the Selenium-Java application contains errors that prevent from taking screenshots, we still can generate a documentation website with placeholder pictures, that can be later replaced with manually take screen captures. That being said, it is almost clear now that we opted for the second approach to create the documentation website.
+
+So, clicking on the generate button creates a executable Selenium-Java application, which, once started, runs the user sequence model  as a Selenium script in the Web browser. As mentioned in the preliminary chapter, the generator classes behind this process are written in Xtend, as statically-typed programming language based on Java and translates to Java source code~\cite{Xtend}. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{secondGenProcess.pdf}
+    \caption{Second approach: Separate generation of the documentation}
+    \label{fig:secondGenProcess}
+\end{figure}
 
 To be able to start a generation process from a graph model we must declare it ''generatable''. We do so bei adding the \lstinline[language=MGL]{@generatable("path.to.generator.Class")} annotation in the graph model meta-specification. This annotation accepts as parameter a Xtend or Java class that implements the IGenerator, whose \lstinline{generate} method starts the whole process and the path to a location where the generation product will be saved (in our case it is in the \lstinline{src-gen} folder). Recalling the goal we set for application code, we create two folder structures inside the src-gen folder: the first one is the Java project structure with the Selenium script and the second one is the VuePress project holding all the Markdown files with the documentation text. Going deeper into technical details is beyond the scope of this paper, hence we provide an illustration of the whole generation process in figure~\ref{fig:WebDocWorkflow}. As you can see, we begin by designing a graph model in the \textsc{Cinco} product application, the WebDoc editor; clicking on the generate button starts a simultaneous creating of both the aforementioned project files. At this point, a fully functional documentation has already been created. We have chosen to generate the documentation file with references to placeholder pictures, that will be overridden once the Selenium script has been executed. To launch the documentation website two simple commands are needed. Then again, we will not go deeper in details to stay in the scope of our thesis, but there is a great online guide on how to get started with VuePress~\cite{vuepress}. As for the Selenium-Java project, it can be imported in an \glsentryfull{ide} such as Eclipse and launch there. After successful execution, all the placeholder pictures will have been overridden and we have a complete documentation.

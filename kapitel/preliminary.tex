@@ -109,7 +109,7 @@ The main graph model, the \lstinline{FeatureGraphModel}, is the one containing a
     
     container FeatureContainer { |\label{line:featCont}|
         style featureContainer("${title}")
-        containableElements(Start[1,1], Stop[1,1],DocNode[1,*])
+        containableElements(Start[1,1], Stop[1,1],DocNode[1,*])|\label{line:multiplicity}|
         attr EString as title := "New Feature"
         @multiLine
         attr EString as documentation := "This feature is about ..."
