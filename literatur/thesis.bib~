@@ -393,9 +393,3 @@
 	title = {Apache .htaccess Guide \& Tutorial}
 }
 
-@misc{SeleniumFAQ,
-	author = {SeleniumFAQ},
-	howpublished = {http://wiki.openqa.org/display/SEL/Selenium+Core+FAQ\#SeleniumCoreFAQ-HowdoIuseSeleniumtologintositesthatrequireHTTPbasicauthentication\%28wherethebrowsermakesamodaldialogaskingforcredentials\%29\%3F},
-	title = {How do I use Selenium to login to sites that require HTTP basic authentication...?}
-}
-
