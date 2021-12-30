@@ -429,18 +429,3 @@
 	year = {2010}
 }
 
-@phdthesis{david1996relevanz,
-	added-at = {2015-09-09T14:58:14.000+0200},
-	author = {David, Eberhard},
-	biburl = {https://www.bibsonomy.org/bibtex/2debe66c1290bf16bc5ef4e76c036667b/genealogie},
-	dnbtitleid = {95024743X},
-	interhash = {1df80daa20a748dccd14da2cd1017360},
-	intrahash = {debe66c1290bf16bc5ef4e76c036667b},
-	keywords = {Handel Industrielle\_und\_handwerkliche\_Fertigung dnb Datenverarbeitung Informatik Wirtschaft Management Verkehr Kommunikation},
-	school = {Uni Paderborn},
-	timestamp = {2015-09-09T14:58:14.000+0200},
-	title = {Zur Relevanz der Dokumentation und Kommunikation in der betrieblichen Softwareentwicklung und -wartung: eine Konzeption zur Verbesserung der Effizienz von Dokumentation und Kommunikation in der betrieblichen Softwareentwicklung mittels CSCW-basierter Technologie und der Integration von Hypertextfunktionalit{\"a}t zur Informationsvernetzung},
-	x-fetchedfrom = {Bibsonomy},
-	year = 1996
-}
-
